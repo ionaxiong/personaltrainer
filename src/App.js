@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
 
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -17,10 +16,12 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import AccountBox from "@material-ui/icons/AccountBox";
+import DirectionsRunIcon from "@material-ui/icons/DirectionsRun";
+import EventIcon from "@material-ui/icons/Event";
+import BarChartIcon from "@material-ui/icons/BarChart";
 
-import CustomerList from "./customers_components/CustomerList";
+import Customers from "./pages/Customers";
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -104,7 +105,7 @@ function App() {
         <Toolbar>
           <IconButton
             color="inherit"
-            aria-label="open drawer"
+            aria-label="menu"
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, open && classes.hide)}
@@ -112,7 +113,7 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Persistent drawer
+            Personal Trainer
           </Typography>
         </Toolbar>
       </AppBar>
@@ -136,16 +137,25 @@ function App() {
         </div>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          {["Customers", "Trainings", "Calendar", "Statistics"].map(
+            (text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index === 0 ? (
+                    <AccountBox />
+                  ) : index === 1 ? (
+                    <DirectionsRunIcon />
+                  ) : index === 2 ? (
+                    <EventIcon />
+                  ) : (
+                    <BarChartIcon />
+                  )}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            )
+          )}
         </List>
-        <Divider />
       </Drawer>
       <main
         className={clsx(classes.content, {
@@ -153,9 +163,8 @@ function App() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <CustomerList />
+        <Customers />
       </main>
-
     </div>
   );
 }
