@@ -19,6 +19,7 @@ import {
 } from 'react-feather';
 import NavItem from './NavItem';
 
+
 const items = [
   {
     href: '/customers',
