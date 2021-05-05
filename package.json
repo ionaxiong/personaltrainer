@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
+    "@types/react-router-dom": "^5.1.7",
     "ag-grid": "^18.1.2",
     "ag-grid-community": "^25.1.0",
     "ag-grid-react": "^25.1.0",
@@ -19,6 +20,7 @@
     "react-feather": "^2.0.9",
     "react-helmet": "^6.1.0",
     "react-moment": "^1.1.1",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "serve": "^11.3.2",
     "web-vitals": "^1.0.1"
