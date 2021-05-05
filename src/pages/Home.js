@@ -54,23 +54,46 @@ const Home = () => (
       <Helmet>
         <title>Home Page</title>
       </Helmet>
+      <div style={{
+        backgroundImage: 'url("/static/sports.png")',
+        backgroundSize: 'cover',
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        height: '100%',
+        width: '100%',
+        zIndex: 0
+      }}>
+
+      
       <Box
         sx={{
-          backgroundColor: 'background.default',
+          // backgroundImage: 'url("/static/sports.png")',
+          // filter: "grayscale(100%)",
+          backgroundSize: 'cover',
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          zIndex: 1
         }}
       >
         <Container maxWidth="md">
-          <Typography
+          {/* <Typography
             align="center"
-            color="textPrimary"
+            color="white"
+            fontFamily="Segoe UI"
             variant="h1"
           >
             PERSONAL TRAINER
-          </Typography>
+          </Typography> */}
+          <h1 style={{fontSize: "calc(2em + 1vw)", color: 'white'}} className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
+              Landing template for <span className="text-color-primary">startups</span>
+          </h1>
           <Typography
             align="center"
             color="textPrimary"
@@ -79,20 +102,21 @@ const Home = () => (
             Premium weight loss and lifestyle transformation which create long lasting, 
             dramatic results to your health, body and mind.
           </Typography>
-          <Box sx={{ textAlign: 'center' }}>
+          {/* <Box sx={{ textAlign: 'center' }}>
             <img
               alt="TrainingImage"
-              src="/static/training.svg"
+              src="/static/training.png"
               style={{
                 marginTop: 50,
                 display: 'inline-block',
                 maxWidth: '100%',
-                width: 560
+                width: 960
               }}
             />
-          </Box>
+          </Box> */}
         </Container>
       </Box>
+      </div>
     </>
   );
 
