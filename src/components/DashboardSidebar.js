@@ -59,38 +59,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
         height: '100%'
       }}
     >
-      <Box
-        sx={{
-          alignItems: 'center',
-          display: 'flex',
-          flexDirection: 'column',
-          p: 2
-        }}
-      >
-        <Avatar
-          component={RouterLink}
-          src={user.avatar}
-          sx={{
-            cursor: 'pointer',
-            width: 64,
-            height: 64
-          }}
-          to="/app/account"
-        />
-        <Typography
-          color="textPrimary"
-          variant="h5"
-        >
-          {user.name}
-        </Typography>
-        <Typography
-          color="textSecondary"
-          variant="body2"
-        >
-          {user.jobTitle}
-        </Typography>
-      </Box>
-      <Divider />
       <Box sx={{ p: 2 }}>
         <List>
           {items.map((item) => (
@@ -111,35 +79,6 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 2
         }}
       >
-        <Typography
-          align="center"
-          gutterBottom
-          variant="h4"
-        >
-          Need more?
-        </Typography>
-        <Typography
-          align="center"
-          variant="body2"
-        >
-          Upgrade to PRO version and access 20 more screens
-        </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            pt: 2
-          }}
-        >
-          <Button
-            color="primary"
-            component="a"
-            href="https://react-material-kit.devias.io"
-            variant="contained"
-          >
-            See PRO version
-          </Button>
-        </Box>
       </Box>
     </Box>
   );

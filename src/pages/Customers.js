@@ -2,12 +2,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
 import CustomerListResults from '../components/customer/CustomerListResults';
-import CustomerListToolBar from '../components/customer/CustomerListToolBar';
+import CustomerListToolbar from '../components/customer/CustomerListToolBar';
 
 const Customers = () => (
   <>
     <Helmet>
-      <title>Customers</title>
+      <title>Customers | Material Kit</title>
     </Helmet>
     <Box
       sx={{
@@ -17,9 +17,9 @@ const Customers = () => (
       }}
     >
       <Container maxWidth={false}>
+        <CustomerListToolbar />
         <Box sx={{ pt: 3 }}>
-          {/* <CustomerListToolBar /> */}
-          <CustomerListResults />
+          {/* <CustomerListResults customers={customers} /> */}
         </Box>
       </Container>
     </Box>
