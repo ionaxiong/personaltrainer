@@ -21,22 +21,22 @@ import NavItem from './NavItem';
 
 const items = [
   {
-    href: '/app/customers',
+    href: '/customers',
     icon: UsersIcon,
     title: 'Customers'
   },
   {
-    href: '/app/trainings',
+    href: '/trainings',
     icon: TrainingIcon,
     title: 'Trainings'
   },
   {
-    href: '/app/calendar',
+    href: '/calendar',
     icon: CalendarIcon,
     title: 'Calendar'
   },
   {
-    href: '/app/statistics',
+    href: '/statistics',
     icon: StatisticsIcon,
     title: 'Statistics'
   }

@@ -4,7 +4,7 @@ import Customers from './pages/Customers';
 
 const routes = [
   {
-    path: 'app',
+    path: '/',
     element: <DashboardLayout />,
     children: [
       { path: 'customers', element: <Customers /> },
@@ -12,7 +12,7 @@ const routes = [
       // { path: 'calendar', element: <Calendar /> },
       // { path: 'statistics', element: <Statistics /> },
     ]
-  }
+  },
 ];
 
 export default routes;
