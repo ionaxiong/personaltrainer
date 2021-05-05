@@ -52,7 +52,6 @@ const DashboardLayout = () => {
       <DashboardLayoutWrapper>
         <DashboardLayoutContainer>
           <DashboardLayoutContent>
-            <Home />
             <Outlet />
           </DashboardLayoutContent>
         </DashboardLayoutContainer>
