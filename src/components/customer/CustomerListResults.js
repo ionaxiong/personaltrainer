@@ -27,7 +27,6 @@ const useRowStyles = makeStyles({
 });
 
 const CustomerListResults = (props, { ...rest }) => {
-  // function CustomerListResults(props) {
   const [customers, setCustomers] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -187,25 +186,6 @@ const CustomerListResults = (props, { ...rest }) => {
           </TableBody>
         </Table>
       </TableContainer>
-      {/* <div style={{height: "400px", width: "100%"}}>
-      {
-        customers !== undefined && customers.length > 0 &&
-          <DataGrid
-            rows={customers}
-            columns={Object.keys(customers)}
-            // component="div"
-            // count={customers.length}
-            // pagination={customers}
-            onPageChange={handlePageChange}
-            // onRowsPerPageChange={handleLimitChange}
-            // page={page}
-            // pageSize={5}
-            // rowsPerPage={limit}
-            // rowsPerPageOptions={[5, 10, 25]}
-            pagination
-          />
-      }
-      </div> */}
       <TablePagination
         component="div"
         count={filterCustomers().length}
@@ -217,10 +197,6 @@ const CustomerListResults = (props, { ...rest }) => {
       />
     </Paper>
   );
-};
-
-CustomerListResults.propTypes = {
-  // customers: PropTypes.array.isRequired,
 };
 
 export default CustomerListResults;
