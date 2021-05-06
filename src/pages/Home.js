@@ -1,53 +1,7 @@
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Button, Container, Typography } from "@material-ui/core";
 import React from "react";
 import { Helmet } from "react-helmet";
-
-// const Home = () => {
-//   <>
-//     <Helmet>
-//       <title>Home Page</title>
-//     </Helmet>
-//     <Box
-//       sx={{
-//         backgroundColor: "backgound.default",
-//         display: "flex",
-//         flexDirection: "column",
-//         height: "100%",
-//         justifyContent: "center",
-//       }}
-//     >
-//       <Container maxWidth="md">
-//         <Typography
-//           align="center"
-//           color="textPrimary"
-//           variant="h1"
-//         >
-//         PERSONAL TRAINER
-//         </Typography>
-//         <Typography
-//           align="center"
-//           color="textPrimary"
-//           variant="subtitle2"
-//         >
-//           Premium weight loss and lifestyle transformation which create long lasting, 
-//           dramatic results to your health, body and mind.
-//         </Typography>
-//         <Box sx={{ textAlign: "center" }}>
-//           <img 
-//             alt="TrainingImage" 
-//             src="/static/training.svg" 
-//             style={{
-//                 marginTop: 50,
-//                 display: 'inline-block',
-//                 maxWidth: '100%',
-//                 width: 560
-//             }}
-//             />
-//         </Box>
-//       </Container>
-//     </Box>
-//   </>;
-// };
+import theme from "../theme";
 
 const Home = () => (
     <>
@@ -57,6 +11,7 @@ const Home = () => (
       <div style={{
         backgroundImage: 'url("/static/sports.png")',
         backgroundSize: 'cover',
+
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
@@ -72,48 +27,56 @@ const Home = () => (
       
       <Box
         sx={{
-          // backgroundImage: 'url("/static/sports.png")',
-          // filter: "grayscale(100%)",
-          backgroundSize: 'cover',
           display: 'flex',
           flexDirection: 'column',
           height: '100%',
           justifyContent: 'center',
-          zIndex: 1
+          marginBottom: '30vh',
+          zIndex: 1,
+          paddingLeft:'50vh',
+          [theme.breakpoints.down('lg')]: {
+            paddingLeft: '0',
+          }
         }}
       >
-        <Container maxWidth="md">
-          {/* <Typography
-            align="center"
-            color="white"
-            fontFamily="Segoe UI"
-            variant="h1"
+        <Container sx={{
+          marginRight: '10vh', 
+          marginTop:'20vh'
+        }}>
+          <Typography 
+            fontSize="calc(4em + 1vw)"
+            fontFamily='Open Sans Condensed'
+            fontWeight='900'
+            color='#FFFFFFFF'
+            textAlign='right'
           >
             PERSONAL TRAINER
-          </Typography> */}
-          <h1 style={{fontSize: "calc(2em + 1vw)", color: 'white'}} className="mt-0 mb-16 reveal-from-bottom" data-reveal-delay="200">
-              Landing template for <span className="text-color-primary">startups</span>
-          </h1>
+          </Typography>
           <Typography
-            align="center"
-            color="textPrimary"
-            variant="subtitle2"
+            fontSize="calc(1em + 1vw)"
+            fontFamily='Open Sans Condensed'
+            color='#F1F4FFFF'
+            textAlign='right'
+            marginTop='3vh'
+            marginBottom='3vh'
+            marginLeft='6vw'
+            paddingLeft='20vw'
           >
             Premium weight loss and lifestyle transformation which create long lasting, 
             dramatic results to your health, body and mind.
           </Typography>
-          {/* <Box sx={{ textAlign: 'center' }}>
-            <img
-              alt="TrainingImage"
-              src="/static/training.png"
-              style={{
-                marginTop: 50,
-                display: 'inline-block',
-                maxWidth: '100%',
-                width: 960
-              }}
-            />
-          </Box> */}
+          <Button
+              size="large"
+              style={{ 
+                background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+                boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+                color:'white',
+                display: 'block',
+                marginLeft: 'auto',
+                marginTop: '12vh'
+                }}
+          > Join Now
+          </Button>
         </Container>
       </Box>
       </div>

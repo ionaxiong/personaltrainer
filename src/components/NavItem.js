@@ -32,7 +32,7 @@ const NavItem = ({
         component={RouterLink}
         sx={{
           color: 'text.secondary',
-          fontWeight: 'medium',
+          fontWeight: '400',
           justifyContent: 'flex-start',
           letterSpacing: 0,
           py: 1.25,
