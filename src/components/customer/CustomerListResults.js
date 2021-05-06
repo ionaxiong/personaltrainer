@@ -28,8 +28,7 @@ const useRowStyles = makeStyles({
   },
 });
 
-function CustomerListResults() {
-  const [searchString, setSearchString] = useState("");
+function CustomerListResults(props) {
   const [customers, setCustomers] = useState([]);
   // const [page, setPage] = useState(0);
   // const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -144,10 +143,6 @@ function CustomerListResults() {
   return (
     <Paper>
       <TableContainer component={Paper}>
-        <CustomerListToolBar
-          setSearchString={setSearchString}
-          searchString={searchString}
-        />
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
@@ -164,8 +159,8 @@ function CustomerListResults() {
           <TableBody>
             {customers
               .filter((row) => {
-                if (searchString !== "") {
-                  return row.firstname.toLowerCase().includes(searchString);
+                if (props.searchString !== "") {
+                  return row.firstname.toLowerCase().includes(props.searchString);
                 } else {
                   return true;
                 }
@@ -177,7 +172,6 @@ function CustomerListResults() {
         </Table>
       </TableContainer>
       <TablePagination
-        // rowsPerPageOptions={10}
         count={customers.length}
 
       />
