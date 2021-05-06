@@ -57,7 +57,7 @@ const Home = () => (
             fontFamily='Open Sans Condensed'
             color='#F1F4FFFF'
             textAlign='right'
-            marginTop='3vh'
+            marginTop='4vh'
             marginBottom='3vh'
             marginLeft='6vw'
             paddingLeft='20vw'
