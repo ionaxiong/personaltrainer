@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
 import moment from "moment";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
@@ -15,10 +14,9 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import CustomerListToolBar from "./CustomerListToolBar";
 
-import TablePagination from '@material-ui/core/TablePagination';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
+import TablePagination from "@material-ui/core/TablePagination";
+import TableSortLabel from "@material-ui/core/TableSortLabel";
 
 const useRowStyles = makeStyles({
   root: {
@@ -28,18 +26,11 @@ const useRowStyles = makeStyles({
   },
 });
 
-function CustomerListResults(props) {
+const CustomerListResults = (props, { ...rest }) => {
+  // function CustomerListResults(props) {
   const [customers, setCustomers] = useState([]);
-  // const [page, setPage] = useState(0);
-  // const [rowsPerPage, setRowsPerPage] = useState(5);
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-  // const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
+  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
     fetchCustomers();
@@ -48,9 +39,34 @@ function CustomerListResults(props) {
   const fetchCustomers = () => {
     fetch("https://customerrest.herokuapp.com/api/customers")
       .then((response) => response.json())
-      .then((data) => setCustomers(data.content))
+      .then((data) => {
+        const customersWithIds = data.content.map((x, i) => {
+          return { ...x, id: i };
+        });
+        setCustomers(customersWithIds);
+      })
       .catch((err) => console.error(err));
   };
+
+  const handleLimitChange = (event) => {
+    setLimit(event.target.value);
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setPage(newPage);
+  }
+
+  const filterCustomers = () => {
+    return customers.filter((row) => {
+      if (props.searchString !== "") {
+        return row.firstname
+          .toLowerCase()
+          .includes(props.searchString);
+      } else {
+        return true;
+      }
+    })
+  }
 
   function Row(props) {
     const { row } = props;
@@ -113,9 +129,15 @@ function CustomerListResults(props) {
                 <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
-                      <TableCell><strong>Date</strong></TableCell>
-                      <TableCell><strong>Activity</strong></TableCell>
-                      <TableCell><strong>Duration</strong></TableCell>
+                      <TableCell>
+                        <strong>Date</strong>
+                      </TableCell>
+                      <TableCell>
+                        <strong>Activity</strong>
+                      </TableCell>
+                      <TableCell>
+                        <strong>Duration</strong>
+                      </TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -141,7 +163,7 @@ function CustomerListResults(props) {
   }
 
   return (
-    <Paper>
+    <Paper {...rest}>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -157,26 +179,48 @@ function CustomerListResults(props) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {customers
-              .filter((row) => {
-                if (props.searchString !== "") {
-                  return row.firstname.toLowerCase().includes(props.searchString);
-                } else {
-                  return true;
-                }
-              })
-              .map((row, index) => (
-                <Row key={index} row={row} />
-              ))}
+            {
+              filterCustomers()
+                .splice(page * limit, limit)
+                .map((row, index) => (<Row key={index} row={row} />))
+            }
           </TableBody>
         </Table>
       </TableContainer>
+      {/* <div style={{height: "400px", width: "100%"}}>
+      {
+        customers !== undefined && customers.length > 0 &&
+          <DataGrid
+            rows={customers}
+            columns={Object.keys(customers)}
+            // component="div"
+            // count={customers.length}
+            // pagination={customers}
+            onPageChange={handlePageChange}
+            // onRowsPerPageChange={handleLimitChange}
+            // page={page}
+            // pageSize={5}
+            // rowsPerPage={limit}
+            // rowsPerPageOptions={[5, 10, 25]}
+            pagination
+          />
+      }
+      </div> */}
       <TablePagination
-        count={customers.length}
-
+        component="div"
+        count={filterCustomers().length}
+        onPageChange={handlePageChange}
+        onRowsPerPageChange={handleLimitChange}
+        page={page}
+        rowsPerPage={limit}
+        rowsPerPageOptions={[5, 10, 25]}
       />
     </Paper>
   );
-}
+};
+
+CustomerListResults.propTypes = {
+  // customers: PropTypes.array.isRequired,
+};
 
 export default CustomerListResults;
