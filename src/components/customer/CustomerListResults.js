@@ -14,9 +14,18 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-
+import {
+  Button,
+  Card,
+  CardContent,
+  TextField,
+  InputAdornment,
+  SvgIcon,
+} from "@material-ui/core";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
+import { CsvBuilder } from 'filefy';
+import { Search as SearchIcon } from "react-feather";
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -99,8 +108,22 @@ const CustomerListResults = (props, { ...rest }) => {
       });
   };
 
+  function ExportSelectionGrid () {
+    const builder = new CsvBuilder('customers.csv');
+    
+    const data = filterCustomers();
+    data.forEach((v) => { delete v.content; delete v.links });
+    const arrays = data.map(x => Object.values(x));
+
+    builder
+      .setDelimeter(',')
+      .setColumns(['Firstname', 'Lastname', 'Address', 'Postcode', 'City', 'Email', 'Phone', 'ID'])
+      .addRows(arrays)
+      .exportFile();
+  }
+
   const headCells = [
-    { id: "firstname", label: "Fristname" },
+    { id: "firstname", label: "Firstname" },
     { id: "lastname", label: "Lastname" },
     { id: "email", label: "Email" },
     { id: "phone", label: "Phone" },
@@ -206,6 +229,44 @@ const CustomerListResults = (props, { ...rest }) => {
   }
 
   return (
+    <>
+    <Box>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button sx={{ mx: 1 }} onClick={ExportSelectionGrid}>Export</Button>
+        <Button color="primary" variant="contained">
+          Add customer
+        </Button>
+      </Box>
+      <Box sx={{ mt: 3, mb: 3 }}>
+        <Card>
+          <CardContent>
+            <Box sx={{ maxWidth: 500}}>
+              <TextField
+                fullWidth
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SvgIcon fontSize="small" color="action">
+                        <SearchIcon />
+                      </SvgIcon>
+                    </InputAdornment>
+                  ),
+                }}
+                placeholder="Search customer"
+                variant="outlined"
+                value={props.searchString}
+                onChange={(e) => props.setSearchString(e.target.value)}
+              />
+            </Box>
+          </CardContent>
+        </Card>
+      </Box>
+    </Box>
     <Paper {...rest}>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
@@ -279,6 +340,7 @@ const CustomerListResults = (props, { ...rest }) => {
         rowsPerPageOptions={[5, 10, 25]}
       />
     </Paper>
+    </>
   );
 };
 

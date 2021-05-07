@@ -8,9 +8,19 @@ import {
   InputAdornment,
   SvgIcon,
 } from "@material-ui/core";
+import { CsvBuilder } from 'filefy';
 import { Search as SearchIcon } from "react-feather";
 
 function CustomerListToolbar(props) {
+  
+  // const builder = new CsvBuilder('customers.csv');
+  
+  // builder
+  //   .setDelimeter(',')
+  //   .setColumns(['firstname', 'lastname', 'email', 'phone', 'streetaddress', 'postcode', 'city'])
+  //   .addRows()
+  //   .exportFile();
+
   return (
     <Box>
       <Box
@@ -19,7 +29,6 @@ function CustomerListToolbar(props) {
           justifyContent: "flex-end",
         }}
       >
-        <Button>Import</Button>
         <Button sx={{ mx: 1 }}>Export</Button>
         <Button color="primary" variant="contained">
           Add customer
