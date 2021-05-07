@@ -41,8 +41,8 @@ const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
-  const [sortBy, setSortBy] = useState("");
-  const [sort, setSort] = useState("desc");
+  const [orderBy, setOrderBy] = useState("");
+  const [order, setOrder] = useState("asc");
   const classes = useRowStyles();
 
   useEffect(() => {
@@ -80,10 +80,21 @@ const CustomerListResults = (props, { ...rest }) => {
         }
       })
       .sort((a, b) => {
-        if (sortBy === "firstname") {
-          return a.firstname.localeCompare(b.firstname);
-        } else if (sortBy === "lastname") {
-          return a.lastname.localeCompare(b.lastname);
+        if (orderBy === "") {
+          return;
+        }
+        if (order === "desc") {
+          if (a[orderBy] < b[orderBy]) {
+            return -1
+          } else {
+            return 1
+          }
+        } else {
+          if (a[orderBy] > b[orderBy]) {
+            return -1
+          } else {
+            return 1
+          }
         }
       });
   };
@@ -125,7 +136,7 @@ const CustomerListResults = (props, { ...rest }) => {
 
     return (
       <React.Fragment>
-        <TableRow className={classes.root}>
+        <TableRow className={classes.root} hover={true}>
           <TableCell>
             <IconButton
               aria-label="expand row"
@@ -142,12 +153,12 @@ const CustomerListResults = (props, { ...rest }) => {
           <TableCell component="th" scope="row">
             {row.firstname}
           </TableCell>
-          <TableCell align="center">{row.lastname}</TableCell>
-          <TableCell align="center">{row.email}</TableCell>
-          <TableCell align="center">{row.phone}</TableCell>
-          <TableCell align="center">{row.streetaddress}</TableCell>
-          <TableCell align="center">{row.postcode}</TableCell>
-          <TableCell align="center">{row.city}</TableCell>
+          <TableCell align="left">{row.lastname}</TableCell>
+          <TableCell align="left">{row.email}</TableCell>
+          <TableCell align="left">{row.phone}</TableCell>
+          <TableCell align="left">{row.streetaddress}</TableCell>
+          <TableCell align="left">{row.postcode}</TableCell>
+          <TableCell align="left">{row.city}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
@@ -203,18 +214,30 @@ const CustomerListResults = (props, { ...rest }) => {
               <TableCell></TableCell>
               {headCells.map((headCell) => (
                 <TableCell
+                  align={"left"}
                   key={headCell.id}
-                  sortDirection={sortBy === headCell.id ? sortBy : false}
+                  sortDirection={orderBy === headCell.id ? order : false}
                 >
                   <TableSortLabel
-                    active={sortBy === headCell.id}
-                    direction={sortBy === headCell.id ? sort : "asc"}
-                    onClick={() => setSortBy(headCell.id)}
+                    active={orderBy === headCell.id}
+                    direction={orderBy === headCell.id ? order : "desc"}
+                    onClick={() => {
+                      if (orderBy === headCell.id) {
+                        if (order === "asc") {
+                          setOrder("desc");
+                        } else {
+                          setOrder("asc");
+                        }
+                      } else {
+                        setOrderBy(headCell.id);
+                        setOrder("desc");
+                      }
+                    }}
                   >
                     {headCell.label}
-                    {sortBy === headCell.id ? (
+                    {orderBy === headCell.id ? (
                       <span className={classes.visuallyHidden}>
-                        {sort === "desc"
+                        {order === "desc"
                           ? "sorted descending"
                           : "sorted ascending"}
                       </span>
