@@ -18,61 +18,32 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 
-// function descendingComparator(a, b, orderBy) {
-//   if (b[orderBy] < a[orderBy]) {
-//     return -1;
-//   }
-//   if (b[orderBy] > a[orderBy]) {
-//     return 1;
-//   }
-//   return 0;
-// }
-
-// function getComparator(order, orderBy) {
-//   return order === 'desc'
-//     ? (a, b) => descendingComparator(a, b, orderBy)
-//     : (a, b) => -descendingComparator(a, b, orderBy);
-// }
-
-// function stableSort(array, comparator) {
-//   const stabilizedThis = array.map((el, index) => [el, index]);
-//   stabilizedThis.sort((a,b) => {
-//     const order = comparator(a[0], b[0]);
-//     if (order !== 0) return order;
-//     return a[1] - b[1];
-//   });
-//   return stabilizedThis.map((el) => el[0]);
-// }
-
-// function EnhancedTableHead(props) {
-//   const {classes, order, orderBy, onRequestSort} = props;
-//   const createSortHandler = (properly) => (event) => {
-//     onRequestSort(event, properly);
-//   };
-// }
-
-
-
-
-// EnhancedTableHead.propTypes = {
-//   classes: PropTypes.object.isRequired,
-//   onRequestSort: PropTypes.func.isRequired,
-//   order: PropTypes.oneOf(['asc', 'desc']).isRequired,
-//   orderBy: PropTypes.string.isRequired,
-// }
-
-const useRowStyles = makeStyles({
+const useRowStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       borderBottom: "unset",
     },
   },
-});
+  visuallyHidden: {
+    border: 0,
+    clip: "rect(0 0 0 0)",
+    height: 1,
+    margin: -1,
+    overflow: "hidden",
+    padding: 0,
+    position: "absolute",
+    top: 20,
+    width: 1,
+  },
+}));
 
 const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
+  const [sortBy, setSortBy] = useState("");
+  const [sort, setSort] = useState("desc");
+  const classes = useRowStyles();
 
   useEffect(() => {
     fetchCustomers();
@@ -82,8 +53,9 @@ const CustomerListResults = (props, { ...rest }) => {
     fetch("https://customerrest.herokuapp.com/api/customers")
       .then((response) => response.json())
       .then((data) => {
-        const customersWithIds = data.content.map((x, i) => {
-          return { ...x, id: i };
+        console.log(data);
+        const customersWithIds = data.content.map((x) => {
+          return { ...x, id: x.links[0].href.split("/").reverse()[0] };
         });
         setCustomers(customersWithIds);
       })
@@ -96,31 +68,47 @@ const CustomerListResults = (props, { ...rest }) => {
 
   const handlePageChange = (event, newPage) => {
     setPage(newPage);
-  }
+  };
 
   const filterCustomers = () => {
-    return customers.filter((row) => {
-      if (props.searchString !== "") {
-        return row.firstname
-          .toLowerCase()
-          .includes(props.searchString);
-      } else {
-        return true;
-      }
-    })
-  }
+    return customers
+      .filter((row) => {
+        if (props.searchString !== "") {
+          return row.firstname.toLowerCase().includes(props.searchString);
+        } else {
+          return true;
+        }
+      })
+      .sort((a, b) => {
+        if (sortBy === "firstname") {
+          return a.firstname.localeCompare(b.firstname);
+        } else if (sortBy === "lastname") {
+          return a.lastname.localeCompare(b.lastname);
+        }
+      });
+  };
+
+  const headCells = [
+    { id: "firstname", label: "Fristname" },
+    { id: "lastname", label: "Lastname" },
+    { id: "email", label: "Email" },
+    { id: "phone", label: "Phone" },
+    { id: "streetaddress", label: "Address" },
+    { id: "postcode", label: "Postcode" },
+    { id: "city", label: "City" },
+  ];
 
   function Row(props) {
     const { row } = props;
     const [trainings, setTrainings] = useState([]);
     const [trainingOpen, setTrainingOpen] = useState(false);
-    const classes = useRowStyles();
 
     const fetchTrainings = (row) => {
       var url = row.links[2].href;
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
+          console.log(data.content);
           setTrainings(data.content);
           setTrainingOpen(true);
         })
@@ -183,17 +171,19 @@ const CustomerListResults = (props, { ...rest }) => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {trainings.map((training, index) => (
-                      <TableRow key={index}>
-                        <TableCell component="th" scope="row">
-                          {training.activity}
-                        </TableCell>
-                        <TableCell>
-                          {moment(training.date).format("DD/MM/YYYY")}
-                        </TableCell>
-                        <TableCell>{training.duration}</TableCell>
-                      </TableRow>
-                    ))}
+                    {trainings.length > 0 &&
+                      trainings[0].rel !== null &&
+                      trainings.map((training, index) => (
+                        <TableRow key={index}>
+                          <TableCell component="th" scope="row">
+                            {training.activity}
+                          </TableCell>
+                          <TableCell>
+                            {moment(training.date).format("DD/MM/YYYY")}
+                          </TableCell>
+                          <TableCell>{training.duration}</TableCell>
+                        </TableRow>
+                      ))}
                   </TableBody>
                 </Table>
               </Box>
@@ -210,22 +200,49 @@ const CustomerListResults = (props, { ...rest }) => {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell>Firstname</TableCell>
-              <TableCell align="center">Lastname</TableCell>
+              <TableCell></TableCell>
+              {headCells.map((headCell) => (
+                <TableCell
+                  key={headCell.id}
+                  sortDirection={sortBy === headCell.id ? sortBy : false}
+                >
+                  <TableSortLabel
+                    active={sortBy === headCell.id}
+                    direction={sortBy === headCell.id ? sort : "asc"}
+                    onClick={() => setSortBy(headCell.id)}
+                  >
+                    {headCell.label}
+                    {sortBy === headCell.id ? (
+                      <span className={classes.visuallyHidden}>
+                        {sort === "desc"
+                          ? "sorted descending"
+                          : "sorted ascending"}
+                      </span>
+                    ) : null}
+                  </TableSortLabel>
+                </TableCell>
+              ))}
+              {/* <TableCell />
+              <TableCell onClick={() => setSortBy("firstname")}>
+                Firstname
+                <TableSortLabel
+                  active={true} direction={'desc'}
+                  />
+              </TableCell> */}
+              {/* <TableCell align="center" onClick={() => setSortBy("lastname")}>Lastname</TableCell>
               <TableCell align="center">Email</TableCell>
               <TableCell align="center">Phone</TableCell>
               <TableCell align="center">Address</TableCell>
               <TableCell align="center">Postcode</TableCell>
-              <TableCell align="center">City</TableCell>
+              <TableCell align="center">City</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
-            {
-              filterCustomers()
-                .splice(page * limit, limit)
-                .map((row, index) => (<Row key={index} row={row} />))
-            }
+            {filterCustomers()
+              .splice(page * limit, limit)
+              .map((row, index) => (
+                <Row key={index} row={row} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
