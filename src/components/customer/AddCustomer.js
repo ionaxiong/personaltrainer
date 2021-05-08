@@ -1,36 +1,11 @@
-import React, { forwardRef, useState } from 'react';
-import { 
-    Button, 
-    Dialog,
-    ListItemText,
-    ListItem,
-    List,
-    Divider,
-    AppBar,
-    Toolbar,
-    IconButton,
-    Typography,
-    Slide, 
-    makeStyles
-    } from '@material-ui/core';
-import CloseIcon from "@material-ui/icons/Close";
+import React, { useState } from 'react';
+import { Button, Dialog } from '@material-ui/core';
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 function AddCustomer (props) {
-    const useStyles = makeStyles((theme) => ({
-        appBar: {
-            position: "relative",
-        },
-        title: {
-            marginLeft: theme.spacing(2),
-            flex: 1,
-        },
-    }));
-
-    const Transition = forwardRef(function Transition(props, ref) {
-        return <Slide direction="up" ref={ref} {...props} />;
-    });
-    
-    const classes = useStyles();
     const [openDialogue, setOpenDialogue] = useState(false);
     const [customer, setCustomer] = useState({
         firstname: "",
@@ -69,10 +44,84 @@ function AddCustomer (props) {
                 ADD CUSTOMER
             </Button>
             <Dialog 
-                fullScreen
                 open={openDialogue}
+                onClose={handleClose}
+                // aria-labelledby="form-dialog-title"
             >
-
+                <DialogTitle id="form-dialog-title" >NEW CUSTOMER</DialogTitle>
+                <DialogContent>
+                    <TextField
+                         autoFocus
+                         margin="dense"
+                         label="Firstname"
+                         value={customer.firstname}
+                         name="firstname"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                     <TextField
+                         autoFocus
+                         margin="dense"
+                         label="Lastname"
+                         value={customer.lastname}
+                         name="lastname"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                    <TextField
+                         autoFocus
+                         margin="dense"
+                         label="Email"
+                         value={customer.email}
+                         name="email"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                    <TextField
+                         autoFocus
+                         margin="dense"
+                         label="Phone"
+                         value={customer.phone}
+                         name="phone"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                    <TextField
+                         autoFocus
+                         margin="dense"
+                         label="Address"
+                         value={customer.streetaddress}
+                         name="streetaddress"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                    <TextField
+                         autoFocus
+                         margin="dense"
+                         label="Postcode"
+                         value={customer.postcode}
+                         name="postcode"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                    <TextField
+                         autoFocus
+                         margin="dense"
+                         label="City"
+                         value={customer.city}
+                         name="city"
+                         onChange={inputChanged}
+                         fullWidth
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="primary" >
+                        Cancel
+                    </Button>
+                    <Button onClick={handleSave} color="primary" >
+                        Save
+                    </Button>
+                </DialogActions>
             </Dialog>
         </>
     )
