@@ -26,6 +26,7 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import { Search as SearchIcon } from "react-feather";
+import CustomerListToolbar from './CustomerListToolbar';
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -230,43 +231,11 @@ const CustomerListResults = (props, { ...rest }) => {
 
   return (
     <>
-    <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Button sx={{ mx: 1 }} onClick={ExportSelectionGrid}>Export</Button>
-        <Button color="primary" variant="contained">
-          Add customer
-        </Button>
-      </Box>
-      <Box sx={{ mt: 3, mb: 3 }}>
-        <Card>
-          <CardContent>
-            <Box sx={{ maxWidth: 500}}>
-              <TextField
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SvgIcon fontSize="small" color="action">
-                        <SearchIcon />
-                      </SvgIcon>
-                    </InputAdornment>
-                  ),
-                }}
-                placeholder="Search customer"
-                variant="outlined"
-                value={props.searchString}
-                onChange={(e) => props.setSearchString(e.target.value)}
-              />
-            </Box>
-          </CardContent>
-        </Card>
-      </Box>
-    </Box>
+    <CustomerListToolbar 
+      ExportSelectionGrid={ExportSelectionGrid}
+      searchString={props.searchString}
+      setSearchString={props.setSearchString}
+    />
     <Paper {...rest}>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
