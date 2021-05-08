@@ -19,9 +19,11 @@ function CustomerListToolbar(props) {
             justifyContent: "flex-end",
             }}
         >
-            <Button sx={{ mx: 1 }} onClick={props.ExportSelectionGrid}>Export</Button>
+            <Button sx={{ mx: 1 }} onClick={props.ExportSelectionGrid}>
+                Export
+            </Button>
             <Button color="primary" variant="contained">
-            Add customer
+                Add customer
             </Button>
         </Box>
         <Box sx={{ mt: 3, mb: 3 }}>

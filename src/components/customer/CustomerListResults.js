@@ -14,19 +14,11 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
-import {
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  InputAdornment,
-  SvgIcon,
-} from "@material-ui/core";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
-import { Search as SearchIcon } from "react-feather";
 import CustomerListToolbar from './CustomerListToolbar';
+import { Snackbar } from "@material-ui/core";
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -49,12 +41,22 @@ const useRowStyles = makeStyles((theme) => ({
 
 const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
+  const [message, setMessage] = useState("");
+  const [open, setOpen] = useState(false);
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [orderBy, setOrderBy] = useState("");
   const [order, setOrder] = useState("asc");
   const classes = useRowStyles();
-
+  
+  const openSnacknar = () => {
+    setOpen(true);
+  };
+  
+  const closeSnackbar = () => {
+    setOpen(false);
+  }
+  
   useEffect(() => {
     fetchCustomers();
   }, []);
@@ -70,6 +72,24 @@ const CustomerListResults = (props, { ...rest }) => {
         setCustomers(customersWithIds);
       })
       .catch((err) => console.error(err));
+  };
+
+  const AddCustomer = (newCustomer) => {
+    fetch("https://customerrest.herokuapp.com/api/customers", {
+      method: "POST",
+      body: JSON.stringify(newCustomer),
+      headers: {"Content-Type": "application/json"},
+    })
+    .then((response) => {
+      if(response.ok) {
+        setMessage("Customer is added sucessfully!");
+        openSnacknar();
+        fetchCustomers();
+      } else {
+        alert("Something went wrong in adding customer!")
+      }
+    })
+    .catch((err) => console.error(err));
   };
 
   const handleLimitChange = (event) => {
@@ -275,19 +295,6 @@ const CustomerListResults = (props, { ...rest }) => {
                   </TableSortLabel>
                 </TableCell>
               ))}
-              {/* <TableCell />
-              <TableCell onClick={() => setSortBy("firstname")}>
-                Firstname
-                <TableSortLabel
-                  active={true} direction={'desc'}
-                  />
-              </TableCell> */}
-              {/* <TableCell align="center" onClick={() => setSortBy("lastname")}>Lastname</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Phone</TableCell>
-              <TableCell align="center">Address</TableCell>
-              <TableCell align="center">Postcode</TableCell>
-              <TableCell align="center">City</TableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -307,6 +314,12 @@ const CustomerListResults = (props, { ...rest }) => {
         page={page}
         rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 25]}
+      />
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        message={message}
+        onClose={closeSnackbar}
       />
     </Paper>
     </>

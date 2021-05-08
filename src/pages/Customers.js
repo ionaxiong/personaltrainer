@@ -19,7 +19,7 @@ const Customers = () => {
         }}
       >
         <Container maxWidth={false}>
-          <Box sx={{ pt: 3 }}>
+          <Box>
             <CustomerListResults
               setSearchString={setSearchString}
               searchString={searchString}
