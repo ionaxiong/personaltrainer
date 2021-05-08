@@ -1,4 +1,4 @@
-import React from 'react';
+import * as react from 'react';
 import {
     Button,
     Card,
@@ -7,10 +7,16 @@ import {
     InputAdornment,
     SvgIcon,
   } from "@material-ui/core";
-import { Search as SearchIcon } from "react-feather";
+import { Search as SearchIcon } from 'react-feather';
 import Box from "@material-ui/core/Box";
+import AddCustomer from "./AddCustomer";
 
 function CustomerListToolbar(props) {
+    
+    const handleAddCustomer = () => {
+        props.addCustomer(newCustomer);
+        }
+
     return (
         <Box>
         <Box
@@ -22,9 +28,10 @@ function CustomerListToolbar(props) {
             <Button sx={{ mx: 1 }} onClick={props.ExportSelectionGrid}>
                 Export
             </Button>
-            <Button color="primary" variant="contained">
+            <AddCustomer addCustomer={handleAddCustomer} />
+            {/* <Button color="primary" variant="contained" onClick={handleAddCustomer} >
                 Add customer
-            </Button>
+            </Button> */}
         </Box>
         <Box sx={{ mt: 3, mb: 3 }}>
             <Card>
@@ -39,7 +46,7 @@ function CustomerListToolbar(props) {
                             <SearchIcon />
                         </SvgIcon>
                         </InputAdornment>
-                    ),
+                    )
                     }}
                     placeholder="Search customer"
                     variant="outlined"

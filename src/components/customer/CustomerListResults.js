@@ -255,6 +255,7 @@ const CustomerListResults = (props, { ...rest }) => {
       ExportSelectionGrid={ExportSelectionGrid}
       searchString={props.searchString}
       setSearchString={props.setSearchString}
+      AddCustomer={AddCustomer}
     />
     <Paper {...rest}>
       <TableContainer component={Paper}>
