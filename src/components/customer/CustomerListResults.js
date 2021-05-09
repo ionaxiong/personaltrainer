@@ -19,6 +19,7 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import CustomerListToolbar from './CustomerListToolbar';
 import { Snackbar } from "@material-ui/core";
+import AddCustomer from "./AddCustomer";
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -255,7 +256,7 @@ const CustomerListResults = (props, { ...rest }) => {
       ExportSelectionGrid={ExportSelectionGrid}
       searchString={props.searchString}
       setSearchString={props.setSearchString}
-      AddCustomer={AddCustomer}
+      addCustomer={AddCustomer}
     />
     <Paper {...rest}>
       <TableContainer component={Paper}>

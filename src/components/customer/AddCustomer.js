@@ -30,7 +30,7 @@ function AddCustomer (props) {
     };
 
     const handleSave = () => {
-        props.AddCustomer(customer);
+        props.addCustomer(customer);
         setOpenDialogue(false);
     }
 
@@ -46,7 +46,6 @@ function AddCustomer (props) {
             <Dialog 
                 open={openDialogue}
                 onClose={handleClose}
-                // aria-labelledby="form-dialog-title"
             >
                 <DialogTitle id="form-dialog-title" >NEW CUSTOMER</DialogTitle>
                 <DialogContent>
