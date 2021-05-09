@@ -12,6 +12,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import TablePagination from "@material-ui/core/TablePagination";
@@ -19,7 +20,8 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import CustomerListToolbar from './CustomerListToolbar';
 import { Snackbar } from "@material-ui/core";
-import AddCustomer from "./AddCustomer";
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -145,6 +147,7 @@ const CustomerListResults = (props, { ...rest }) => {
   }
 
   const headCells = [
+    // { id: "actions", label: "Actions"},
     { id: "firstname", label: "Firstname" },
     { id: "lastname", label: "Lastname" },
     { id: "email", label: "Email" },
@@ -194,6 +197,17 @@ const CustomerListResults = (props, { ...rest }) => {
                 <KeyboardArrowDownIcon />
               )}
             </IconButton>
+          </TableCell>
+          <TableCell sx={{display: "flex", border: 0, flexFlow: "row"}}>
+            <IconButton aria-label="delete">
+              <DeleteIcon fontSize="small" />
+            </IconButton>
+            <IconButton aria-label="edit">
+              <EditIcon fontSize="small" />
+            </IconButton>
+          </TableCell>
+          <TableCell>
+            <Button size="small" >ADD TRAININGS</Button>
           </TableCell>
           <TableCell component="th" scope="row">
             {row.firstname}
@@ -263,6 +277,8 @@ const CustomerListResults = (props, { ...rest }) => {
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
+              <TableCell></TableCell>
+              <TableCell align={"center"} >Actions</TableCell>
               <TableCell></TableCell>
               {headCells.map((headCell) => (
                 <TableCell
