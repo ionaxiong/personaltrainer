@@ -77,7 +77,7 @@ const CustomerListResults = (props, { ...rest }) => {
       .catch((err) => console.error(err));
   };
 
-  const AddCustomer = (newCustomer) => {
+  const addCustomer = (newCustomer) => {
     fetch("https://customerrest.herokuapp.com/api/customers", {
       method: "POST",
       body: JSON.stringify(newCustomer),
@@ -94,6 +94,11 @@ const CustomerListResults = (props, { ...rest }) => {
     })
     .catch((err) => console.error(err));
   };
+
+  const deleteCustomer = () => {
+    
+
+  }
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -147,7 +152,6 @@ const CustomerListResults = (props, { ...rest }) => {
   }
 
   const headCells = [
-    // { id: "actions", label: "Actions"},
     { id: "firstname", label: "Firstname" },
     { id: "lastname", label: "Lastname" },
     { id: "email", label: "Email" },
@@ -198,7 +202,7 @@ const CustomerListResults = (props, { ...rest }) => {
               )}
             </IconButton>
           </TableCell>
-          <TableCell sx={{display: "flex", border: 0, flexFlow: "row"}}>
+          <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
             <IconButton aria-label="delete">
               <DeleteIcon fontSize="small" />
             </IconButton>
@@ -206,9 +210,9 @@ const CustomerListResults = (props, { ...rest }) => {
               <EditIcon fontSize="small" />
             </IconButton>
           </TableCell>
-          <TableCell>
+          {/* <TableCell>
             <Button size="small" >ADD TRAININGS</Button>
-          </TableCell>
+          </TableCell> */}
           <TableCell component="th" scope="row">
             {row.firstname}
           </TableCell>
@@ -256,6 +260,7 @@ const CustomerListResults = (props, { ...rest }) => {
                       ))}
                   </TableBody>
                 </Table>
+                <Button size="small" color="primary"  sx={{marginTop: 2, marginBottom: 1}} >ADD TRAININGS</Button>
               </Box>
             </Collapse>
           </TableCell>
@@ -270,7 +275,7 @@ const CustomerListResults = (props, { ...rest }) => {
       ExportSelectionGrid={ExportSelectionGrid}
       searchString={props.searchString}
       setSearchString={props.setSearchString}
-      addCustomer={AddCustomer}
+      addCustomer={addCustomer}
     />
     <Paper {...rest}>
       <TableContainer component={Paper}>
@@ -278,8 +283,7 @@ const CustomerListResults = (props, { ...rest }) => {
           <TableHead>
             <TableRow>
               <TableCell></TableCell>
-              <TableCell align={"center"} >Actions</TableCell>
-              <TableCell></TableCell>
+              <TableCell align="left" sx={{paddingLeft: 4.5}} >Actions</TableCell>
               {headCells.map((headCell) => (
                 <TableCell
                   align={"left"}
