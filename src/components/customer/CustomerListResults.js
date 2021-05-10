@@ -18,9 +18,9 @@ import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
-import CustomerListToolbar from './CustomerListToolbar';
 import { Alert, Snackbar } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
+import CustomerListToolbar from './CustomerListToolbar';
 import DeleteCustomer from "./DeleteCustomer";
 
 const useRowStyles = makeStyles((theme) => ({
