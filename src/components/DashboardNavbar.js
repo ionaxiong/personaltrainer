@@ -23,7 +23,7 @@ const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
         </RouterLink>
         <Hidden lgUp>
           <IconButton sx={{color: "white", marginLeft: "auto"}} onClick={onMobileNavOpen}>
-            <MenuIcon></MenuIcon>
+            <MenuIcon ></MenuIcon>
           </IconButton>
         </Hidden>
       </Toolbar>
