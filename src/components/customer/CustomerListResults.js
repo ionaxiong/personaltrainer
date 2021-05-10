@@ -50,6 +50,10 @@ const useRowStyles = makeStyles((theme) => ({
   },
 }));
 
+// function Alert(props) {
+//   return <MuiAlert elevation={6} variant="filled" {...props} />;
+// }
+
 const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
   const [message, setMessage] = useState("");
@@ -99,7 +103,7 @@ const CustomerListResults = (props, { ...rest }) => {
         openSnacknar();
         fetchCustomers();
       } else {
-        setMessage("Something went wrong in adding customer!");
+        setMessage("Something went wrong when adding customer!");
         setAlertSeverity("error");
         openSnacknar();
       }
@@ -116,7 +120,7 @@ const CustomerListResults = (props, { ...rest }) => {
         openSnacknar();
         fetchCustomers();
       } else {
-        setMessage("Something went wrong in deleting customer!");
+        setMessage("Something went wrong when deleting customer!");
         setAlertSeverity("error");
         openSnacknar();
       }
@@ -227,10 +231,7 @@ const CustomerListResults = (props, { ...rest }) => {
             </IconButton>
           </TableCell>
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
-            <IconButton aria-label="delete"  >
-              {/* onClick={() => props.deleteCustomer(row.links[1].href)} */}
-              <DeleteIcon fontSize="small" />
-            </IconButton>
+            <DeleteCustomer deleteCustomer={deleteCustomer}/>
             <IconButton aria-label="edit">
               <EditIcon fontSize="small" />
             </IconButton>
