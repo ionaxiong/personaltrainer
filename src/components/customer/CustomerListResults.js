@@ -19,7 +19,6 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import { Alert, Snackbar } from "@material-ui/core";
-import EditIcon from '@material-ui/icons/Edit';
 import CustomerListToolbar from './CustomerListToolbar';
 import DeleteCustomer from "./DeleteCustomer";
 import EditCustomer from "./EditCustomer";
@@ -273,10 +272,10 @@ const CustomerListResults = (props, { ...rest }) => {
                   <TableHead>
                     <TableRow>
                       <TableCell>
-                        <strong>Date</strong>
+                        <strong>Activity</strong>
                       </TableCell>
                       <TableCell>
-                        <strong>Activity</strong>
+                        <strong>Date</strong>
                       </TableCell>
                       <TableCell>
                         <strong>Duration</strong>
