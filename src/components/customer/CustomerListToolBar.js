@@ -7,7 +7,7 @@ import {
   InputAdornment,
   SvgIcon,
 } from "@material-ui/core";
-import { Search as SearchIcon } from "react-feather";
+import { Search } from "react-feather";
 import Box from "@material-ui/core/Box";
 import AddCustomer from "./AddCustomer";
 
@@ -36,7 +36,7 @@ function CustomerListToolbar(props) {
                   startAdornment: (
                     <InputAdornment position="start">
                       <SvgIcon fontSize="small" color="action">
-                        <SearchIcon />
+                        <Search />
                       </SvgIcon>
                     </InputAdornment>
                   ),

@@ -20,7 +20,7 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import { Alert, Snackbar } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
-// import CustomerListToolbar from './CustomerListToolbar';
+import CustomerListToolbar from './CustomerListToolbar';
 import DeleteCustomer from "./DeleteCustomer";
 
 const useRowStyles = makeStyles((theme) => ({
@@ -293,12 +293,12 @@ const CustomerListResults = (props, { ...rest }) => {
 
   return (
     <>
-    {/* <CustomerListToolbar
+    <CustomerListToolbar
       ExportSelectionGrid={ExportSelectionGrid}
       searchString={props.searchString}
       setSearchString={props.setSearchString}
       addCustomer={addCustomer}
-    /> */}
+    />
     <Paper {...rest}>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
