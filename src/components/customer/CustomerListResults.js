@@ -107,7 +107,7 @@ const CustomerListResults = (props, { ...rest }) => {
   };
 
   const deleteCustomer = (customerId) => {
-  fetch(`https://customerrest.herokuapp.com/api/customers/${customerId}` , {method: "DELETE"})
+    fetch(`https://customerrest.herokuapp.com/api/customers/${customerId}`, {method: "DELETE"})
     .then((response) => {
       if (response.ok) {
         setMessage("Customer is deleted successfully!");
@@ -122,6 +122,10 @@ const CustomerListResults = (props, { ...rest }) => {
     })
     .catch((err) => console.error(err));
   }
+
+  // const editCustomer = (customerId, updatedCustomer) => {
+    
+  // }
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);

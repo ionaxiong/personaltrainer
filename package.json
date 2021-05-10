@@ -1,7 +1,12 @@
 {
   "name": "personaltrainer",
+  "description": "A front end app for customer database. Database contains info about customers and their trainings",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.x",
+    "npm": "6.x"
+  },
   "dependencies": {
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
