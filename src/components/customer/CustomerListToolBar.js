@@ -7,11 +7,12 @@ import {
   InputAdornment,
   SvgIcon,
 } from "@material-ui/core";
-import { Search } from "react-feather";
+import { Search as SearchIcon} from "react-feather";
 import Box from "@material-ui/core/Box";
 import AddCustomer from "./AddCustomer";
 
 function CustomerListToolbar(props) {
+  
   const handleAddCustomer = (newCustomer) => {
     props.addCustomer(newCustomer);
   };
@@ -36,7 +37,7 @@ function CustomerListToolbar(props) {
                   startAdornment: (
                     <InputAdornment position="start">
                       <SvgIcon fontSize="small" color="action">
-                        <Search />
+                        <SearchIcon />
                       </SvgIcon>
                     </InputAdornment>
                   ),
@@ -53,9 +54,9 @@ function CustomerListToolbar(props) {
                 justifyContent: "flex-end",
               }}
             >
-              <Button sx={{ margin: 1 }} onClick={props.ExportSelectionGrid}>
+              {/* <Button sx={{ margin: 1 }} onClick={props.ExportSelectionGrid}>
                 Export
-              </Button>
+              </Button> */}
               <AddCustomer addCustomer={handleAddCustomer} />
             </Box>
           </CardContent>

@@ -294,7 +294,7 @@ const CustomerListResults = (props, { ...rest }) => {
   return (
     <>
     <CustomerListToolbar
-      ExportSelectionGrid={ExportSelectionGrid}
+      // ExportSelectionGrid={ExportSelectionGrid}
       searchString={props.searchString}
       setSearchString={props.setSearchString}
       addCustomer={addCustomer}
