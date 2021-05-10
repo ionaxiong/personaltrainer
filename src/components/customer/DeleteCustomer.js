@@ -10,7 +10,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 function DeleteCustomer (props) {
     const [openDialog, setOpenDialog] = useState(false);
-    // const [deletionConfirmation, setDeletionConfirmation] = useState(false);
     
     const handleClickOpen = () => {
         setOpenDialog(true);
@@ -21,23 +20,9 @@ function DeleteCustomer (props) {
     }
 
     const customerDeletion = () => {
-        props.deleteCustomer();
+        props.deleteCustomer(props.customerId);
         handleClose();
     }
-
-    // const handleCustomerDeletion = () => {
-    //     deletionConfirmation === true
-    //     ? customerDeletion()
-    //     : handleClose();
-    // }
- 
-    {/* onClick={() => props.deleteCustomer(row.links[1].href)} */}
-
-    // cellRendererFramework: (params) => (
-    //     <IconButton color="secondary" onClick={() => deleteCar(params.value)}>
-    //       <DeleteIcon />
-    //     </IconButton>
-    //   ),
  
     return (
         <>
@@ -50,17 +35,17 @@ function DeleteCustomer (props) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
+                <DialogTitle sx={{fontSize: "1.25rem"}} id="alert-dialog-title">DELETE BOOKMARK</DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description" >
+                        Are you sure that you want to delete this customer? This action cannot be undone.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={handleClose} color="inherit" >Cancel</Button>
+                    <Button onClick={customerDeletion} color="secondary" >Delete</Button>
+                </DialogActions>
             </Dialog>
-            <DialogTitle id="alert-dialog-title"> {"Delete bookmark"}</DialogTitle>
-            <DialogContent>
-                <DialogContentText id="alert-dialog-description" >
-                    Are you sure that you want to delete this customer? This action cannot be undone.
-                </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="inherit" variant="outlined" >Cancel</Button>
-                <Button onClick={customerDeletion} color="secondary" variant="outlined" >Delete</Button>
-            </DialogActions>
         </>
     )
 }

@@ -20,8 +20,6 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import CustomerListToolbar from './CustomerListToolbar';
 import { Alert, Snackbar } from "@material-ui/core";
-import MuiAlert from '@material-ui/lab/Alert';
-import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteCustomer from "./DeleteCustomer";
 
@@ -29,6 +27,7 @@ const useRowStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       borderBottom: "unset",
+      h6: "1.25rem"
     },
   },
   visuallyHidden: {
@@ -49,10 +48,6 @@ const useRowStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-// function Alert(props) {
-//   return <MuiAlert elevation={6} variant="filled" {...props} />;
-// }
 
 const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
@@ -111,8 +106,8 @@ const CustomerListResults = (props, { ...rest }) => {
     .catch((err) => console.error(err));
   };
 
-  const deleteCustomer = (url) => {
-    fetch(url, {method: "DELETE"})
+  const deleteCustomer = (customerId) => {
+  fetch(`https://customerrest.herokuapp.com/api/customers/${customerId}` , {method: "DELETE"})
     .then((response) => {
       if (response.ok) {
         setMessage("Customer is deleted successfully!");
@@ -231,7 +226,7 @@ const CustomerListResults = (props, { ...rest }) => {
             </IconButton>
           </TableCell>
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
-            <DeleteCustomer deleteCustomer={deleteCustomer}/>
+            <DeleteCustomer customerId={row.id} deleteCustomer={deleteCustomer}/>
             <IconButton aria-label="edit">
               <EditIcon fontSize="small" />
             </IconButton>
