@@ -135,6 +135,7 @@ const CustomerListResults = (props, { ...rest }) => {
         setMessage("Customer is edited!");
         setAlertSeverity("success");
         openSnacknar();
+        fetchCustomers();
       } else {
         setMessage("Something went wrong when editing!");
         setAlertSeverity("error");
@@ -249,6 +250,7 @@ const CustomerListResults = (props, { ...rest }) => {
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
             <DeleteCustomer customerId={row.id} deleteCustomer={deleteCustomer}/>
             <EditCustomer customerId={row.id} customer={row} editCustomer={editCustomer} />
+            {/* {console.log(row.id, row)} */}
           </TableCell>
           <TableCell component="th" scope="row">
             {row.firstname}
