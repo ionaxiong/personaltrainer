@@ -9,7 +9,7 @@ const routes = [
     element: <DashboardLayout />,
     children: [
       { path: '/', element: <Home /> },
-      { path: '/customers', element: <Customers />}
+      // { path: '/customers', element: <Customers />}
       // { path: 'trainings', element: <Trainings /> },
       // { path: 'calendar', element: <Calendar /> },
       // { path: 'statistics', element: <Statistics /> },
