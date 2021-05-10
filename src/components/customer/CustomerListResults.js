@@ -22,6 +22,7 @@ import { Alert, Snackbar } from "@material-ui/core";
 import EditIcon from '@material-ui/icons/Edit';
 import CustomerListToolbar from './CustomerListToolbar';
 import DeleteCustomer from "./DeleteCustomer";
+import EditCustomer from "./EditCustomer";
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -122,10 +123,26 @@ const CustomerListResults = (props, { ...rest }) => {
     })
     .catch((err) => console.error(err));
   }
-
-  // const editCustomer = (customerId, updatedCustomer) => {
-    
-  // }
+ 
+  const editCustomer = (customerId, updatedCustomer) => {
+    fetch(`https://customerrest.herokuapp.com/api/customers/${customerId}`, {
+      method: "PUT",
+      body: JSON.stringify(updatedCustomer),
+      headers: {"Content-type": "application/json"},
+    })
+    .then((response) => {
+      if (response.ok) {
+        setMessage("Customer is edited!");
+        setAlertSeverity("success");
+        openSnacknar();
+      } else {
+        setMessage("Something went wrong when editing!");
+        setAlertSeverity("error");
+        openSnacknar();
+      }
+    })
+    .catch((err) => console.error(err))
+ }
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -231,9 +248,7 @@ const CustomerListResults = (props, { ...rest }) => {
           </TableCell>
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
             <DeleteCustomer customerId={row.id} deleteCustomer={deleteCustomer}/>
-            <IconButton aria-label="edit">
-              <EditIcon fontSize="small" />
-            </IconButton>
+            <EditCustomer customerId={row.id} customer={row} editCustomer={editCustomer} />
           </TableCell>
           <TableCell component="th" scope="row">
             {row.firstname}

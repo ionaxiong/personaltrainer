@@ -115,7 +115,7 @@ function AddCustomer (props) {
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleClose} color="primary" >
+                    <Button onClick={handleClose} color="inherit" >
                         Cancel
                     </Button>
                     <Button onClick={handleSave} color="primary" >
