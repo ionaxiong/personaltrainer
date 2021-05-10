@@ -40,6 +40,7 @@ function AddCustomer (props) {
                 color="primary"
                 variant="contained"
                 onClick={handleClickOpen}
+                sx={{ margin: 1 }}
             >
                 ADD CUSTOMER
             </Button>

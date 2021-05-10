@@ -18,24 +18,18 @@ function CustomerListToolbar(props) {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <Button sx={{ mx: 1 }} onClick={props.ExportSelectionGrid}>
-          Export
-        </Button>
-        <AddCustomer addCustomer={handleAddCustomer} />
-        {/* <Button color="primary" variant="contained" onClick={handleAddCustomer} >
-                Add customer
-            </Button> */}
-      </Box>
       <Box sx={{ mt: 3, mb: 3 }}>
         <Card>
-          <CardContent>
-            <Box sx={{ maxWidth: 500 }}>
+          <CardContent sx={{ 
+            padding: "16px", 
+            '&:last-child': { 
+              paddingBottom: "16px" 
+            }, 
+            flexFlow: "row", 
+            display: "flex", 
+            justifyContent: "space-between" 
+          }}>
+            <Box sx={{ maxWidth: 500, flexGrow: 1 }}>
               <TextField
                 fullWidth
                 InputProps={{
@@ -52,6 +46,17 @@ function CustomerListToolbar(props) {
                 value={props.searchString}
                 onChange={(e) => props.setSearchString(e.target.value)}
               />
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <Button sx={{ margin: 1 }} onClick={props.ExportSelectionGrid}>
+                Export
+              </Button>
+              <AddCustomer addCustomer={handleAddCustomer} />
             </Box>
           </CardContent>
         </Card>

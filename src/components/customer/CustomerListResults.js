@@ -19,9 +19,11 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableSortLabel from "@material-ui/core/TableSortLabel";
 import { CsvBuilder } from 'filefy';
 import CustomerListToolbar from './CustomerListToolbar';
-import { Snackbar } from "@material-ui/core";
+import { Alert, Snackbar } from "@material-ui/core";
+import MuiAlert from '@material-ui/lab/Alert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteCustomer from "./DeleteCustomer";
 
 const useRowStyles = makeStyles((theme) => ({
   root: {
@@ -40,26 +42,33 @@ const useRowStyles = makeStyles((theme) => ({
     top: 20,
     width: 1,
   },
+  snackbar: {
+    position: "center",
+    [theme.breakpoints.down('xs')]: {
+      bottom: 90,
+    },
+  },
 }));
 
 const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
   const [message, setMessage] = useState("");
-  const [open, setOpen] = useState(false);
+  const [open,setOpen] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState("");
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [orderBy, setOrderBy] = useState("");
   const [order, setOrder] = useState("asc");
   const classes = useRowStyles();
-  
+
   const openSnacknar = () => {
     setOpen(true);
   };
-  
+
   const closeSnackbar = () => {
     setOpen(false);
   }
-  
+
   useEffect(() => {
     fetchCustomers();
   }, []);
@@ -86,18 +95,33 @@ const CustomerListResults = (props, { ...rest }) => {
     .then((response) => {
       if(response.ok) {
         setMessage("Customer is added sucessfully!");
+        setAlertSeverity("success");
         openSnacknar();
         fetchCustomers();
       } else {
-        alert("Something went wrong in adding customer!")
+        setMessage("Something went wrong in adding customer!");
+        setAlertSeverity("error");
+        openSnacknar();
       }
     })
     .catch((err) => console.error(err));
   };
 
-  const deleteCustomer = () => {
-    
-
+  const deleteCustomer = (url) => {
+    fetch(url, {method: "DELETE"})
+    .then((response) => {
+      if (response.ok) {
+        setMessage("Customer is deleted successfully!");
+        setAlertSeverity("success");
+        openSnacknar();
+        fetchCustomers();
+      } else {
+        setMessage("Something went wrong in deleting customer!");
+        setAlertSeverity("error");
+        openSnacknar();
+      }
+    })
+    .catch((err) => console.error(err));
   }
 
   const handleLimitChange = (event) => {
@@ -139,7 +163,7 @@ const CustomerListResults = (props, { ...rest }) => {
 
   function ExportSelectionGrid () {
     const builder = new CsvBuilder('customers.csv');
-    
+
     const data = filterCustomers();
     data.forEach((v) => { delete v.content; delete v.links });
     const arrays = data.map(x => Object.values(x));
@@ -203,16 +227,14 @@ const CustomerListResults = (props, { ...rest }) => {
             </IconButton>
           </TableCell>
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
-            <IconButton aria-label="delete">
+            <IconButton aria-label="delete"  >
+              {/* onClick={() => props.deleteCustomer(row.links[1].href)} */}
               <DeleteIcon fontSize="small" />
             </IconButton>
             <IconButton aria-label="edit">
               <EditIcon fontSize="small" />
             </IconButton>
           </TableCell>
-          {/* <TableCell>
-            <Button size="small" >ADD TRAININGS</Button>
-          </TableCell> */}
           <TableCell component="th" scope="row">
             {row.firstname}
           </TableCell>
@@ -271,7 +293,7 @@ const CustomerListResults = (props, { ...rest }) => {
 
   return (
     <>
-    <CustomerListToolbar 
+    <CustomerListToolbar
       ExportSelectionGrid={ExportSelectionGrid}
       searchString={props.searchString}
       setSearchString={props.setSearchString}
@@ -340,9 +362,13 @@ const CustomerListResults = (props, { ...rest }) => {
       <Snackbar
         open={open}
         autoHideDuration={4000}
-        message={message}
         onClose={closeSnackbar}
-      />
+        anchorOrigin={{vertical:"bottom", horizontal:"center"}}
+      >
+        <Alert onClose={closeSnackbar} severity={alertSeverity} >
+          {message}
+        </Alert>
+      </Snackbar>
     </Paper>
     </>
   );
