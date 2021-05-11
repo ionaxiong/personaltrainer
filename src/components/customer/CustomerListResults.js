@@ -56,7 +56,7 @@ const CustomerListResults = (props, { ...rest }) => {
   const [customers, setCustomers] = useState([]);
   const [message, setMessage] = useState("");
   const [open,setOpen] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState("");
+  const [alertSeverity, setAlertSeverity] = useState("warning");
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
   const [orderBy, setOrderBy] = useState("");
