@@ -10,7 +10,6 @@ import TableCell from "@material-ui/core/TableCell";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -22,6 +21,7 @@ import { Alert, Snackbar } from "@material-ui/core";
 import CustomerListToolbar from './CustomerListToolbar';
 import DeleteCustomer from "./DeleteCustomer";
 import EditCustomer from "./EditCustomer";
+import AddTrainingToCustomer from "./AddTrainingToCustomer";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -79,7 +79,6 @@ const CustomerListResults = (props, { ...rest }) => {
     fetch("https://customerrest.herokuapp.com/api/customers")
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         const customersWithIds = data.content.map((x) => {
           return { ...x, id: x.links[0].href.split("/").reverse()[0] };
         });
@@ -218,12 +217,32 @@ const CustomerListResults = (props, { ...rest }) => {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.content);
           setTrainings(data.content);
           setTrainingOpen(true);
         })
         .catch((err) => console.error(err));
     };
+
+    const addTrainingToCustomer = (newTraining) => {
+      fetch(`${row.links[2].href.content}`, {
+        method: "POST",
+        body: JSON.stringify(newTraining),
+        headers: {"Content-Type": "application/json"},
+      })
+      .then((response) => {
+        if(response.ok) {
+          setMessage("Training is added successfully!");
+          setAlertSeverity("success");
+          openSnacknar();
+          fetchTrainings();
+        } else {
+          setMessage("Something went wrong when adding training!");
+          setAlertSeverity("error");
+          openSnacknar();
+        }
+      })
+      .catch((err) => console.error(err));
+    }
 
     const handleOpen = (row) => {
       if (trainingOpen) {
@@ -241,12 +260,12 @@ const CustomerListResults = (props, { ...rest }) => {
               aria-label="expand row"
               size="small"
               onClick={() => handleOpen(row)}
-            >
+              >
               {trainingOpen ? (
                 <KeyboardArrowUpIcon />
-              ) : (
-                <KeyboardArrowDownIcon />
-              )}
+                ) : (
+                  <KeyboardArrowDownIcon />
+                  )}
             </IconButton>
           </TableCell>
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
@@ -267,9 +286,6 @@ const CustomerListResults = (props, { ...rest }) => {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
             <Collapse in={trainingOpen}>
               <Box margin={1}>
-                {/* <Typography variant="h7" marginTop={2} gutterBottom component="div">
-                  TRAININGS
-                </Typography> */}
                 <List >
                   {trainings.length > 0 && trainings[0].rel !== null && trainings.map((training, index) => (
                     <ListItem key={index} >
@@ -282,39 +298,7 @@ const CustomerListResults = (props, { ...rest }) => {
                     </ListItem>
                   ))}
                   </List>
-
-                {/* <Table size="small" aria-label="purchases">
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>
-                        <strong>Activity</strong>
-                      </TableCell>
-                      <TableCell>
-                        <strong>Date</strong>
-                      </TableCell>
-                      <TableCell>
-                        <strong>Duration</strong>
-                      </TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {trainings.length > 0 &&
-                      trainings[0].rel !== null &&
-                      trainings.map((training, index) => (
-                        <TableRow key={index}>
-                          <TableCell component="th" scope="row">
-                            {training.activity}
-                          </TableCell>
-                          <TableCell>
-                            {moment(training.date).format("DD/MM/YYYY")}
-                          </TableCell>
-                          <TableCell>{training.duration}</TableCell>
-                        </TableRow>
-                      ))}
-                  </TableBody>
-                </Table> */}
-                
-                <Button color="primary" sx={{margin: 1}} >ADD TRAININGS</Button>
+                <AddTrainingToCustomer customerId={row.id} addTrainingToCustomer={addTrainingToCustomer} />
               </Box>
             </Collapse>
           </TableCell>
