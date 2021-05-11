@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
   AppBar,
@@ -10,7 +10,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Logo from './Logo';
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
-  const [notifications] = useState([]);
 
   return (
     <AppBar

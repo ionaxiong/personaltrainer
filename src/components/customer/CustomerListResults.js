@@ -163,7 +163,7 @@ const CustomerListResults = (props, { ...rest }) => {
       })
       .sort((a, b) => {
         if (orderBy === "") {
-          return;
+          return 0;
         }
         if (order === "desc") {
           if (a[orderBy] < b[orderBy]) {

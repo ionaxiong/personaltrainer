@@ -14,7 +14,6 @@ const Home = () => (
 
         display: 'flex',
         flexDirection: 'column',
-        height: '100%',
         justifyContent: 'center',
         position: 'absolute',
         top: 0,
