@@ -22,8 +22,11 @@ import { Alert, Snackbar } from "@material-ui/core";
 import CustomerListToolbar from './CustomerListToolbar';
 import DeleteCustomer from "./DeleteCustomer";
 import EditCustomer from "./EditCustomer";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 
-const useRowStyles = makeStyles((theme) => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       borderBottom: "unset",
@@ -58,7 +61,7 @@ const CustomerListResults = (props, { ...rest }) => {
   const [page, setPage] = useState(0);
   const [orderBy, setOrderBy] = useState("");
   const [order, setOrder] = useState("asc");
-  const classes = useRowStyles();
+  const classes = useStyles();
 
   const openSnacknar = () => {
     setOpen(true);
@@ -249,7 +252,6 @@ const CustomerListResults = (props, { ...rest }) => {
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
             <DeleteCustomer customerId={row.id} deleteCustomer={deleteCustomer}/>
             <EditCustomer customerId={row.id} customer={row} editCustomer={editCustomer} />
-            {/* {console.log(row.id, row)} */}
           </TableCell>
           <TableCell component="th" scope="row">
             {row.firstname}
@@ -265,10 +267,23 @@ const CustomerListResults = (props, { ...rest }) => {
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={12}>
             <Collapse in={trainingOpen}>
               <Box margin={1}>
-                <Typography variant="h6" gutterBottom component="div">
-                  Trainings
-                </Typography>
-                <Table size="small" aria-label="purchases">
+                {/* <Typography variant="h7" marginTop={2} gutterBottom component="div">
+                  TRAININGS
+                </Typography> */}
+                <List >
+                  {trainings.length > 0 && trainings[0].rel !== null && trainings.map((training, index) => (
+                    <ListItem key={index} >
+                      <ListItemText 
+                        component="th" 
+                        scope="row" 
+                        primary={training.activity + " " + training.duration + " mins"} 
+                        secondary={moment(training.date).format("DD/MM/YYYY")}>
+                      </ListItemText>
+                    </ListItem>
+                  ))}
+                  </List>
+
+                {/* <Table size="small" aria-label="purchases">
                   <TableHead>
                     <TableRow>
                       <TableCell>
@@ -297,8 +312,9 @@ const CustomerListResults = (props, { ...rest }) => {
                         </TableRow>
                       ))}
                   </TableBody>
-                </Table>
-                <Button size="small" color="primary"  sx={{marginTop: 2, marginBottom: 1}} >ADD TRAININGS</Button>
+                </Table> */}
+                
+                <Button color="primary" sx={{margin: 1}} >ADD TRAININGS</Button>
               </Box>
             </Collapse>
           </TableCell>
