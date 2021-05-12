@@ -22,6 +22,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteTraining from "./DeleteTraining";
+import { DataGrid } from "@material-ui/data-grid";
 
 const TrainingListResults = (props, { ...rest }) => {
     const useStyles = makeStyles((theme) => ({
@@ -64,26 +65,21 @@ const TrainingListResults = (props, { ...rest }) => {
     const closeSnackbar = () => {
         setOpen(false);
     }
-    
-    // customer: fetch(`${x.links[2].href}`
-    // .then((response) => response.json())
-    // .then((data) => {
-    //     data.
-    // })
-    
-    // )};
 
     const fetchTrainings = () => {
-        fetch(`https://customerrest.herokuapp.com/api/trainings`)
+        fetch(`https://customerrest.herokuapp.com/gettrainings`)
         .then((response) => response.json())
         .then((data) => {
-            const trainingWithIds = data.content.map((x) => {
+            const trainingWithCustomerDetails = data.map((x) => {
                 return {
-                    ...x, 
-                    id: x.links[0].href.split("/").reverse()[0],
+                    ...x,
+                    trainingId: x.id, 
+                    customerId: x.customer.id,
+                    customerFirstname: x.customer.firstname,
+                    customerLastname: x.customer.lastname,
                 }
             });
-            setTrainings(trainingWithIds);
+            setTrainings(trainingWithCustomerDetails);
         })
         .catch((err) => console.error(err));
     }
@@ -118,6 +114,7 @@ const TrainingListResults = (props, { ...rest }) => {
 
     return (
         <>
+            {/* <DataGrid {...trainings} ></DataGrid> */}
             <TableContainer component={Paper} >
                 <Table>
                     <TableHead>
@@ -126,7 +123,7 @@ const TrainingListResults = (props, { ...rest }) => {
                             {headCells.map((headCell, index) => (
                                 <TableCell
                                     align="left"
-                                    key={headCell.id}
+                                    key={index}
                                 >
                                     {headCell.label}
                                 </TableCell>
@@ -135,26 +132,27 @@ const TrainingListResults = (props, { ...rest }) => {
                     </TableHead>
                     <TableBody>
                         {trainings.map((training, index) => (
-                            <TableRow key={training.id} className={classes.root} hover={true} >
+                            <TableRow key={index} className={classes.root} hover={true} >
                                 <TableCell align="center"><DeleteTraining trainingid={training.id} deleteTraining={deleteTraining} /></TableCell>
                                 <TableCell component="th" scope="row" >{training.activity}</TableCell>
-                                <TableCell align="left" >{moment(training.date).format("ddd DD/MM/YYYY, hh:mm A")}</TableCell>
+                                {/* <TableCell align="left" >{moment(training.date).format("ddd DD/MM/YYYY, hh:mm A") }</TableCell> */}
+                                <TableCell align="left" >{moment(training.date) ? moment(training.date).format("ddd DD/MM/YYYY, hh:mm A") : ""}</TableCell>
                                 <TableCell align="left" >{training.duration}</TableCell>
-                                <TableCell align="left" >{training.duration}</TableCell>
+                                <TableCell align="left" >{training.customerFirstname + " " + training.customerLastname}</TableCell>
                             </TableRow>
                         ))}
-                            {/* {trainings.map((training, index) => {
-                                return <div>
-                                    {training.activity}
-                                    {training.duration}
-                                    {training.date}
-                                </div>
-                            })} */}
                     </TableBody>
                 </Table>
             </TableContainer>
+            <Snackbar
+                open={open}
+                autoHideDuration={4000}
+                onClose={closeSnackbar}
+                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+            >
+                <Alert onClose={closeSnackbar} severity={alertSeverity} >{message}</Alert>
+            </Snackbar>
 
-                
         </>
     )
 }
