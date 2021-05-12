@@ -63,7 +63,7 @@ const CustomerListResults = (props, { ...rest }) => {
   const [order, setOrder] = useState("asc");
   const classes = useStyles();
 
-  const openSnacknar = () => {
+  const openSnackbar = () => {
     setOpen(true);
   };
 
@@ -97,12 +97,12 @@ const CustomerListResults = (props, { ...rest }) => {
       if(response.ok) {
         setMessage("Customer is added sucessfully!");
         setAlertSeverity("success");
-        openSnacknar();
+        openSnackbar();
         fetchCustomers();
       } else {
         setMessage("Something went wrong when adding customer!");
         setAlertSeverity("error");
-        openSnacknar();
+        openSnackbar();
       }
     })
     .catch((err) => console.error(err));
@@ -114,12 +114,12 @@ const CustomerListResults = (props, { ...rest }) => {
       if (response.ok) {
         setMessage("Customer is deleted successfully!");
         setAlertSeverity("success");
-        openSnacknar();
+        openSnackbar();
         fetchCustomers();
       } else {
         setMessage("Something went wrong when deleting customer!");
         setAlertSeverity("error");
-        openSnacknar();
+        openSnackbar();
       }
     })
     .catch((err) => console.error(err));
@@ -135,12 +135,12 @@ const CustomerListResults = (props, { ...rest }) => {
       if (response.ok) {
         setMessage("Customer is edited!");
         setAlertSeverity("success");
-        openSnacknar();
+        openSnackbar();
         fetchCustomers();
       } else {
         setMessage("Something went wrong when editing!");
         setAlertSeverity("error");
-        openSnacknar();
+        openSnackbar();
       }
     })
     .catch((err) => console.error(err))
@@ -233,12 +233,12 @@ const CustomerListResults = (props, { ...rest }) => {
         if(response.ok) {
           setMessage("Training is added successfully!");
           setAlertSeverity("success");
-          openSnacknar();
+          openSnackbar();
           fetchTrainings();
         } else {
           setMessage("Something went wrong when adding training!");
           setAlertSeverity("error");
-          openSnacknar();
+          openSnackbar();
         }
       })
       .catch((err) => console.error(err));
@@ -261,11 +261,9 @@ const CustomerListResults = (props, { ...rest }) => {
               size="small"
               onClick={() => handleOpen(row)}
               >
-              {trainingOpen ? (
-                <KeyboardArrowUpIcon />
-                ) : (
-                  <KeyboardArrowDownIcon />
-                  )}
+              {trainingOpen 
+              ? ( <KeyboardArrowUpIcon />) 
+              : ( <KeyboardArrowDownIcon />)}
             </IconButton>
           </TableCell>
           <TableCell width={80} sx={{display: "flex", border: 0, flexFlow: "row", }}>
