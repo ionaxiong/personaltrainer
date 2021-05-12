@@ -1,8 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { Box, Container } from '@material-ui/core';
+import TrainingListResults from "../components/training/TrainingListResults";
 
-const Customers = () => (
+const Traininngs = () => (
   <>
     <Helmet>
       <title>Trainings</title>
@@ -17,11 +18,11 @@ const Customers = () => (
       <Container maxWidth={false}>
         {/* <CustomerListToolbar /> */}
         <Box sx={{ pt: 3 }}>
-          {/* <CustomerListResults customers={customers} /> */}
+          <TrainingListResults  />
         </Box>
       </Container>
     </Box>
   </>
 );
 
-export default Customers;
+export default Traininngs;

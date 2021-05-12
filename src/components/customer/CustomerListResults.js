@@ -70,22 +70,22 @@ const CustomerListResults = (props, { ...rest }) => {
   const closeSnackbar = () => {
     setOpen(false);
   }
-
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
-
+  
   const fetchCustomers = () => {
     fetch("https://customerrest.herokuapp.com/api/customers")
-      .then((response) => response.json())
-      .then((data) => {
-        const customersWithIds = data.content.map((x) => {
-          return { ...x, id: x.links[0].href.split("/").reverse()[0] };
-        });
-        setCustomers(customersWithIds);
-      })
-      .catch((err) => console.error(err));
+    .then((response) => response.json())
+    .then((data) => {
+      const customersWithIds = data.content.map((x) => {
+        return { ...x, id: x.links[0].href.split("/").reverse()[0] };
+      });
+      setCustomers(customersWithIds);
+    })
+    .catch((err) => console.error(err));
   };
+  
+    useEffect(() => {
+      fetchCustomers();
+    }, []);
 
   const addCustomer = (newCustomer) => {
     fetch("https://customerrest.herokuapp.com/api/customers", {
