@@ -121,6 +121,7 @@ const TrainingListResults = (props, { ...rest }) => {
             headerName: "Actions",
             width: 200,
             align: "center",
+            headerAlign: "center",
             filterable: false,
             sortable: false,
             editable: false,
