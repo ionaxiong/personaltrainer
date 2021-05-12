@@ -26,7 +26,8 @@ function CustomerListToolbar(props) {
             '&:last-child': { 
               paddingBottom: "16px" 
             }, 
-            flexFlow: "row", 
+            flexFlow: "row",
+            flexWrap: "wrap",
             display: "flex", 
             justifyContent: "space-between" 
           }}>

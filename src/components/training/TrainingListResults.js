@@ -24,36 +24,36 @@ import ListItemText from '@material-ui/core/ListItemText';
 import DeleteTraining from "./DeleteTraining";
 import { DataGrid } from "@material-ui/data-grid";
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+      "& > *": {
+        borderBottom: "unset",
+        h6: "1.25rem"
+      },
+      height: "70vh",
+    },
+    visuallyHidden: {
+      border: 0,
+      clip: "rect(0 0 0 0)",
+      height: 1,
+      margin: -1,
+      overflow: "hidden",
+      padding: 0,
+      position: "absolute",
+      top: 20,
+      width: 1,
+    },
+    snackbar: {
+      position: "center",
+      [theme.breakpoints.down('xs')]: {
+        bottom: 90,
+      },
+    },
+  }));
+
 const TrainingListResults = (props, { ...rest }) => {
-    const useStyles = makeStyles((theme) => ({
-        root: {
-          "& > *": {
-            borderBottom: "unset",
-            h6: "1.25rem"
-          },
-        },
-        visuallyHidden: {
-          border: 0,
-          clip: "rect(0 0 0 0)",
-          height: 1,
-          margin: -1,
-          overflow: "hidden",
-          padding: 0,
-          position: "absolute",
-          top: 20,
-          width: 1,
-        },
-        snackbar: {
-          position: "center",
-          [theme.breakpoints.down('xs')]: {
-            bottom: 90,
-          },
-        },
-      }));
-    
     const classes = useStyles();
     const [trainings, setTrainings] = useState([]);
-    const [customer, setCustomer] = useState()
     const [message, setMessage] = useState("");
     const [alertSeverity, setAlertSeverity] = useState("error");
     const [open, setOpen] = useState(false);
@@ -71,12 +71,22 @@ const TrainingListResults = (props, { ...rest }) => {
         .then((response) => response.json())
         .then((data) => {
             const trainingWithCustomerDetails = data.map((x) => {
-                return {
-                    ...x,
-                    trainingId: x.id, 
-                    customerId: x.customer.id,
-                    customerFirstname: x.customer.firstname,
-                    customerLastname: x.customer.lastname,
+                if (x.customer == null) {
+                    return {
+                        id: x.id.toString(),
+                        activity: x.activity,
+                        date: x.date,
+                        duration: x.duration,
+                        customer: ""
+                    } 
+                } else {
+                    return {
+                        id: x.id.toString(),
+                        activity: x.activity,
+                        date: x.date,
+                        duration: x.duration,
+                        customer: x.customer.firstname + " " + x.customer.lastname
+                    }
                 }
             });
             setTrainings(trainingWithCustomerDetails);
@@ -112,10 +122,40 @@ const TrainingListResults = (props, { ...rest }) => {
         {id: "customer", label: "Customer"},
     ]
 
+    const columns = [
+        {field: "activity", headerName: "Activiry", filterable: true, },
+        {field: "date", headerName: "Date", filterable: true, },
+        {field: "duration", headerName: "Duration (mins)", filterable: true, },
+        {field: "customer", headerName: "Customer", filterable: true, },
+    ]
+
+    console.log(columns, trainings)
+
     return (
         <>
-            {/* <DataGrid {...trainings} ></DataGrid> */}
-            <TableContainer component={Paper} >
+            <Paper {...rest} className={classes.root} >
+                {trainings.length > 0 &&
+                    <DataGrid 
+                        rows={trainings}
+                        columns={columns}
+                    // columns={trainings.map((training) => ({
+                        //     ...training,
+                        //     filterable: true,
+                        
+                        // }))} 
+                    >
+                    </DataGrid>
+                }
+                <Snackbar
+                open={open}
+                autoHideDuration={4000}
+                onClose={closeSnackbar}
+                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
+            >
+                <Alert onClose={closeSnackbar} severity={alertSeverity} >{message}</Alert>
+            </Snackbar>
+            </Paper>
+            {/* <TableContainer component={Paper} >
                 <Table>
                     <TableHead>
                         <TableRow>
@@ -135,7 +175,6 @@ const TrainingListResults = (props, { ...rest }) => {
                             <TableRow key={index} className={classes.root} hover={true} >
                                 <TableCell align="center"><DeleteTraining trainingid={training.id} deleteTraining={deleteTraining} /></TableCell>
                                 <TableCell component="th" scope="row" >{training.activity}</TableCell>
-                                {/* <TableCell align="left" >{moment(training.date).format("ddd DD/MM/YYYY, hh:mm A") }</TableCell> */}
                                 <TableCell align="left" >{moment(training.date) ? moment(training.date).format("ddd DD/MM/YYYY, hh:mm A") : ""}</TableCell>
                                 <TableCell align="left" >{training.duration}</TableCell>
                                 <TableCell align="left" >{training.customerFirstname + " " + training.customerLastname}</TableCell>
@@ -143,15 +182,8 @@ const TrainingListResults = (props, { ...rest }) => {
                         ))}
                     </TableBody>
                 </Table>
-            </TableContainer>
-            <Snackbar
-                open={open}
-                autoHideDuration={4000}
-                onClose={closeSnackbar}
-                anchorOrigin={{vertical: "bottom", horizontal: "center"}}
-            >
-                <Alert onClose={closeSnackbar} severity={alertSeverity} >{message}</Alert>
-            </Snackbar>
+            </TableContainer> */}
+
 
         </>
     )
