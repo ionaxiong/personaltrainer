@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
         borderBottom: "unset",
         h6: "1.25rem"
       },
-      height: "70vh",
+    width: "100%",
     },
     visuallyHidden: {
       border: 0,
@@ -115,18 +115,27 @@ const TrainingListResults = (props, { ...rest }) => {
         .catch((err) => console.log(err));
     }
 
-    const headCells = [
-        {id: "activity", label: "Activity"},
-        {id: "date", label: "Date"},
-        {id: "duration", label: "Duration (mins)"},
-        {id: "customer", label: "Customer"},
-    ]
-
     const columns = [
-        {field: "activity", headerName: "Activiry", filterable: true, },
-        {field: "date", headerName: "Date", filterable: true, },
-        {field: "duration", headerName: "Duration (mins)", filterable: true, },
-        {field: "customer", headerName: "Customer", filterable: true, },
+        {
+            field: "actions", 
+            headerName: "Actions",
+            width: 200,
+            align: "center",
+            filterable: false,
+            sortable: false,
+            editable: false,
+            renderCell: ((params) => <DeleteTraining trainingid={params.id} deleteTraining={deleteTraining} />)
+        },
+        {field: "activity", flex: 1, headerName: "Activity", filterable: true, },
+        {
+            field: "date", 
+            flex: 1, 
+            headerName: "Date", 
+            filterable: true,
+            renderCell: ((params) => <div>{moment(params.date) ? moment(params.date).format("ddd DD/MM/YYYY, hh:mm A") : ""}</div>)
+        },
+        {field: "duration", flex: 1, headerName: "Duration (mins)", filterable: true, },
+        {field: "customer", flex: 1, headerName: "Customer", filterable: true, },
     ]
 
     console.log(columns, trainings)
@@ -135,14 +144,13 @@ const TrainingListResults = (props, { ...rest }) => {
         <>
             <Paper {...rest} className={classes.root} >
                 {trainings.length > 0 &&
-                    <DataGrid 
-                        rows={trainings}
-                        columns={columns}
-                    // columns={trainings.map((training) => ({
-                        //     ...training,
-                        //     filterable: true,
-                        
-                        // }))} 
+                    <DataGrid
+                    rows={trainings}
+                    columns={columns}
+                    pagination
+                    pageSize={5}
+                        rowsPerPageOptions={[5, 10, 25]}
+                        autoHeight
                     >
                     </DataGrid>
                 }
