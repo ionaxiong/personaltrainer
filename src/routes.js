@@ -2,6 +2,8 @@ import React from 'react';
 import DashboardLayout from './components/DashboardLayout';
 import Customers from './pages/Customers';
 import Trainings from "./pages/Trainings";
+import Calendar from "./pages/Calendar";
+import Statistics from "./pages/Statistics";
 import Home from './pages/Home';
 
 const routes = [
@@ -12,8 +14,8 @@ const routes = [
       { path: '/', element: <Home /> },
       { path: '/customers', element: <Customers />},
       { path: '/trainings', element: <Trainings /> },
-      // { path: '/calendar', element: <Calendar /> },
-      // { path: '/statistics', element: <Statistics /> },
+      { path: '/calendar', element: <Calendar /> },
+      { path: '/statistics', element: <Statistics /> },
     ]
   }
 ];

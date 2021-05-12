@@ -20,7 +20,7 @@ const DeleteTraining = (props) => {
     }
 
     const trainingDeletion = () => {
-        props.DeleteTraining(props.trainingid)
+        props.deleteTraining(props.trainingid)
         handleClose();
     }
 
