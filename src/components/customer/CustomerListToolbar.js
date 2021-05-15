@@ -7,12 +7,11 @@ import {
   InputAdornment,
   SvgIcon,
 } from "@material-ui/core";
-import { Search as SearchIcon} from "react-feather";
+import { Search as SearchIcon } from "react-feather";
 import Box from "@material-ui/core/Box";
 import AddCustomer from "./AddCustomer";
 
 function CustomerListToolbar(props) {
-  
   const handleAddCustomer = (newCustomer) => {
     props.addCustomer(newCustomer);
   };
@@ -21,16 +20,18 @@ function CustomerListToolbar(props) {
     <Box>
       <Box sx={{ mt: 3, mb: 3 }}>
         <Card>
-          <CardContent sx={{ 
-            padding: "16px", 
-            '&:last-child': { 
-              paddingBottom: "16px" 
-            }, 
-            flexFlow: "row",
-            flexWrap: "wrap",
-            display: "flex", 
-            justifyContent: "space-between" 
-          }}>
+          <CardContent
+            sx={{
+              padding: "16px",
+              "&:last-child": {
+                paddingBottom: "16px",
+              },
+              flexFlow: "row",
+              flexWrap: "wrap",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <Box sx={{ maxWidth: 500, flexGrow: 1 }}>
               <TextField
                 fullWidth

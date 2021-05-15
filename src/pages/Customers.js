@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
-import CustomerListResults from '../components/customer/CustomerListResults';
+import React, { useState } from "react";
+import { Helmet } from "react-helmet";
+import { Box, Container } from "@material-ui/core";
+import CustomerListResults from "../components/customer/CustomerListResults";
 
 const Customers = () => {
   const [searchString, setSearchString] = useState("");
@@ -13,9 +13,9 @@ const Customers = () => {
       </Helmet>
       <Box
         sx={{
-          backgroundColor: 'background.default',
-          minHeight: '100%',
-          py: 3
+          backgroundColor: "background.default",
+          minHeight: "100%",
+          py: 3,
         }}
       >
         <Container maxWidth={false}>
@@ -28,7 +28,7 @@ const Customers = () => {
         </Container>
       </Box>
     </>
-  )
+  );
 };
 
 export default Customers;

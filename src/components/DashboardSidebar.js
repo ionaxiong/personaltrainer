@@ -1,43 +1,36 @@
-import {React, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import {
-  Box,
-  Drawer,
-  Hidden,
-  List,
-  Typography,
-} from '@material-ui/core';
+import { React, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Box, Drawer, Hidden, List, Typography } from "@material-ui/core";
 import {
   Users as UsersIcon,
   Heart as TrainingIcon,
   Calendar as CalendarIcon,
-  BarChart2 as StatisticsIcon
-} from 'react-feather';
-import NavItem from './NavItem';
-
+  BarChart2 as StatisticsIcon,
+} from "react-feather";
+import NavItem from "./NavItem";
 
 const items = [
   {
-    href: '/customers',
+    href: "/customers",
     icon: UsersIcon,
-    title: 'Customers'
+    title: "Customers",
   },
   {
-    href: '/trainings',
+    href: "/trainings",
     icon: TrainingIcon,
-    title: 'Trainings'
+    title: "Trainings",
   },
   {
-    href: '/calendar',
+    href: "/calendar",
     icon: CalendarIcon,
-    title: 'Calendar'
+    title: "Calendar",
   },
   {
-    href: '/statistics',
+    href: "/statistics",
     icon: StatisticsIcon,
-    title: 'Statistics'
-  }
+    title: "Statistics",
+  },
 ];
 
 const DashboardSidebar = ({ onMobileClose, openMobile }) => {
@@ -52,9 +45,9 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
   const content = (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%'
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
       }}
     >
       <Box sx={{ p: 2 }}>
@@ -76,11 +69,13 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           p: 1,
         }}
       >
-        <Typography sx={{
-          fontFamily: "Roboto, Helvetica, Arial, sans-serif",
-          fontSize: "0.875rem",
-          color: "#6b778c"
-        }}>
+        <Typography
+          sx={{
+            fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+            fontSize: "0.875rem",
+            color: "#6b778c",
+          }}
+        >
           Copyright © 2021 Ming Xiong
         </Typography>
       </Box>
@@ -97,8 +92,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
           variant="temporary"
           PaperProps={{
             sx: {
-              width: 256
-            }
+              width: 256,
+            },
           }}
         >
           {content}
@@ -113,8 +108,8 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
             sx: {
               width: 256,
               top: 64,
-              height: 'calc(100% - 64px)'
-            }
+              height: "calc(100% - 64px)",
+            },
           }}
         >
           {content}
@@ -126,12 +121,12 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
 
 DashboardSidebar.propTypes = {
   onMobileClose: PropTypes.func,
-  openMobile: PropTypes.bool
+  openMobile: PropTypes.bool,
 };
 
 DashboardSidebar.defaultProps = {
-  onMobileClose: () => { },
-  openMobile: false
+  onMobileClose: () => {},
+  openMobile: false,
 };
 
 export default DashboardSidebar;

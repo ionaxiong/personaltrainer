@@ -1,28 +1,22 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  IconButton, 
-  Hidden
-} from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
-import Logo from './Logo';
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import { AppBar, Toolbar, IconButton, Hidden } from "@material-ui/core";
+import MenuIcon from "@material-ui/icons/Menu";
+import Logo from "./Logo";
 
 const DashboardNavbar = ({ onMobileNavOpen, ...rest }) => {
-
   return (
-    <AppBar
-      elevation={0}
-      {...rest}
-    >
+    <AppBar elevation={0} {...rest}>
       <Toolbar>
         <RouterLink to="/">
           <Logo />
         </RouterLink>
         <Hidden lgUp>
-          <IconButton sx={{color: "white", marginLeft: "auto"}} onClick={onMobileNavOpen}>
-            <MenuIcon ></MenuIcon>
+          <IconButton
+            sx={{ color: "white", marginLeft: "auto" }}
+            onClick={onMobileNavOpen}
+          >
+            <MenuIcon></MenuIcon>
           </IconButton>
         </Hidden>
       </Toolbar>

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
-import CalendarComponents from '../components/calendar/CalendarComponents';
+import React from "react";
+import { Helmet } from "react-helmet";
+import { Box, Container } from "@material-ui/core";
+import CalendarComponents from "../components/calendar/CalendarComponents";
 
 const Calendar = () => (
   <>
@@ -10,9 +10,9 @@ const Calendar = () => (
     </Helmet>
     <Box
       sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
+        backgroundColor: "background.default",
+        minHeight: "100%",
+        py: 3,
       }}
     >
       <Container maxWidth={false}>

@@ -1,6 +1,6 @@
-import React from 'react';
-import { Helmet } from 'react-helmet';
-import { Box, Container } from '@material-ui/core';
+import React from "react";
+import { Helmet } from "react-helmet";
+import { Box, Container } from "@material-ui/core";
 import TrainingGraphStatistics from "../components/statistics/TrainingGraphStatistics";
 
 const Statistics = () => (
@@ -10,9 +10,9 @@ const Statistics = () => (
     </Helmet>
     <Box
       sx={{
-        backgroundColor: 'background.default',
-        minHeight: '100%',
-        py: 3
+        backgroundColor: "background.default",
+        minHeight: "100%",
+        py: 3,
       }}
     >
       <Container maxWidth={false}>
