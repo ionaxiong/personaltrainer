@@ -139,8 +139,6 @@ const TrainingListResults = (props, { ...rest }) => {
         {field: "customer", flex: 1, headerName: "Customer", filterable: true, },
     ]
 
-    console.log(columns, trainings)
-
     return (
         <>
             <Paper {...rest} className={classes.root} >
@@ -195,8 +193,6 @@ const TrainingListResults = (props, { ...rest }) => {
                     </TableBody>
                 </Table>
             </TableContainer> */}
-
-
         </>
     )
 }
