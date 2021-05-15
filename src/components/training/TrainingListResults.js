@@ -166,34 +166,6 @@ const TrainingListResults = (props, { ...rest }) => {
                 <Alert onClose={closeSnackbar} severity={alertSeverity} >{message}</Alert>
             </Snackbar>
             </Paper>
-            {/* <TableContainer component={Paper} >
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center" >Actions</TableCell>
-                            {headCells.map((headCell, index) => (
-                                <TableCell
-                                    align="left"
-                                    key={index}
-                                >
-                                    {headCell.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {trainings.map((training, index) => (
-                            <TableRow key={index} className={classes.root} hover={true} >
-                                <TableCell align="center"><DeleteTraining trainingid={training.id} deleteTraining={deleteTraining} /></TableCell>
-                                <TableCell component="th" scope="row" >{training.activity}</TableCell>
-                                <TableCell align="left" >{moment(training.date) ? moment(training.date).format("ddd DD/MM/YYYY, hh:mm A") : ""}</TableCell>
-                                <TableCell align="left" >{training.duration}</TableCell>
-                                <TableCell align="left" >{training.customerFirstname + " " + training.customerLastname}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer> */}
         </>
     )
 }

@@ -1,0 +1,22 @@
+diff --git a/node_modules/@material-ui/pickers/esm/makePickerWithState-5a79cb8a.js b/node_modules/@material-ui/pickers/esm/makePickerWithState-5a79cb8a.js
+index 1c3d54c..272007a 100644
+--- a/node_modules/@material-ui/pickers/esm/makePickerWithState-5a79cb8a.js
++++ b/node_modules/@material-ui/pickers/esm/makePickerWithState-5a79cb8a.js
+@@ -6,7 +6,7 @@ import clsx from 'clsx';
+ import _extends from '@babel/runtime/helpers/esm/extends';
+ import _objectWithoutProperties from '@babel/runtime/helpers/esm/objectWithoutProperties';
+ import Typography from '@material-ui/core/Typography';
+-import { makeStyles, fade, withStyles, createStyles } from '@material-ui/core/styles';
++import { makeStyles, alpha, withStyles, createStyles } from '@material-ui/core/styles';
+ import Button from '@material-ui/core/Button';
+ import Toolbar from '@material-ui/core/Toolbar';
+ import { W as Wrapper } from './Wrapper-241966d7.js';
+@@ -22,7 +22,7 @@ var useStyles = makeStyles(function (theme) {
+   var textColor = theme.palette.type === 'light' ? theme.palette.primary.contrastText : theme.palette.getContrastText(theme.palette.background["default"]);
+   return {
+     toolbarTxt: {
+-      color: fade(textColor, 0.54)
++      color: alpha(textColor, 0.54)
+     },
+     toolbarBtnSelected: {
+       color: textColor

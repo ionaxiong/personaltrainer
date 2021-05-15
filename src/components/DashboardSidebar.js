@@ -6,6 +6,7 @@ import {
   Drawer,
   Hidden,
   List,
+  Typography,
 } from '@material-ui/core';
 import {
   Users as UsersIcon,
@@ -71,11 +72,17 @@ const DashboardSidebar = ({ onMobileClose, openMobile }) => {
       <Box sx={{ flexGrow: 1 }} />
       <Box
         sx={{
-          backgroundColor: 'background.default',
-          m: 2,
-          p: 2
+          m: 1,
+          p: 1,
         }}
       >
+        <Typography sx={{
+          fontFamily: "Roboto, Helvetica, Arial, sans-serif",
+          fontSize: "0.875rem",
+          color: "#6b778c"
+        }}>
+          Copyright © 2021 Ming Xiong
+        </Typography>
       </Box>
     </Box>
   );
