@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createClass } from "react";
+
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -20,34 +21,33 @@ import {
 import _ from "lodash";
 // // import { changeNumberOfData } from './utils';
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     padding: 50,
-//   },
-//   container: {
-//     padding: "10px",
-//     width: "900px",
-//     height: "260px",
-//     backgroundColor: "#fff",
-//   },
-//   label: {
-//     fontFamily: "sans-serif",
-//   },
-//   sideText: {
-//     transform: [{ rotate: "180deg" }],
-//     position: "absolute",
-//     left: "-120px",
-//     top: "150px",
-//     // zindex: "9999999",
-//     // text-transform: "uppercase",
-//   },
-// }));
-
+ const useStyles = makeStyles((theme) => ({
+   root: {
+     padding: 50,
+   },
+   container: {
+     padding: "10px",
+     width: "900px",
+     height: "260px",
+     backgroundColor: "#fff",
+   },
+   label: {
+     fontFamily: "sans-serif",
+   },
+   sideText: {
+     transform: [{ rotate: "180deg" }],
+     position: "absolute",
+     left: "-120px",
+     top: "150px",
+     // zindex: "9999999",
+     // text-transform: "uppercase",
+   },
+ }));
 
 
 const TrainingGraphStatistics = () => {
   const [data, setData] = useState([]);
-  // const classes = useStyles();
+  const classes = useStyles();
   // const colors = scaleOrdinal(schemeCategory10).range();
   const fetchData = () => {
     fetch(`https://customerrest.herokuapp.com/gettrainings`)
@@ -61,32 +61,31 @@ const TrainingGraphStatistics = () => {
     fetchData();
   },[]);
 
-//   const CustomizedLabel = createClass({
-//     render () {
-//      const {x, y, fill, value} = this.props;
-//       return <text 
-//                 x={x} 
-//                 y={y} 
-//                 dy={-4} 
-//                 fontSize='16' 
-//                 fontFamily='sans-serif'
-//                 fill={fill}
-//                 textAnchor="middle">{value}%</text>
-//    }
-//  });
- 
+  const CustomizedLabel = (props) =>({
+    render () {
+     const {x, y, fill, value} = this.props;
+      return <text 
+                x={x} 
+                y={y} 
+                dy={-4}
+                // fontSize='16' 
+                // fontFamily='sans-serif'
+                fill={fill}
+                textAnchor="middle">{value}</text>
+   }
+ });
+
   return (
     <>
       <Paper >
         <BarChart width={1200} height={800} data={data} margin={{ top: 5, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis />
-            <YAxis dataKey={data.duration}  />
+            <YAxis />
             <Tooltip />
             <Legend />
             <Bar dataKey="duration" fill="#8884d8"  />
         </BarChart> 
-
       </Paper>
     </>
   )
