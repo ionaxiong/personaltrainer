@@ -66,18 +66,18 @@ function AddTrainingToCustomer(props) {
   }
 
   const [openDialogue, setOpenDialog] = useState(false);
-  const [training, setTraining] = useState([{
+  const [training, setTraining] = useState({
     date: new Date(),
-    duration: 0,
+    duration: "",
     activity: "",
-  }]);
+  });
 
   const handleDateChange = (date) => {
     setTraining({ ...training, date: Date.parse(date) });
   };
 
   const inputChanged = (e) => {  
-    setTraining({ ...training, [e.target.name]: [e.target.value] });
+    setTraining({ ...training, [e.target.name]: e.target.value });
   };
 
   const handleClickOpen = () => {
@@ -101,17 +101,19 @@ function AddTrainingToCustomer(props) {
         <DialogContent>
           <form noValidate >
             <FormControl className={classes.formControl}>
-              <Select inputProps={{ name: "activity", id: "activity" }} onChange={inputChanged}>
+              <InputLabel htmlFor="activity">Activity</InputLabel>
+              <Select id="activity" value={training.activity} inputProps={{ name: "activity", id: "activity" }} onChange={inputChanged}>
                 {getAvailableTrainingActivities().map((activity, index) => 
                   <MenuItem key={index} value={activity} >{activity}</MenuItem>
-                  )}
+                )}
               </Select>
             </FormControl>
             <FormControl sx={{marginBlock: "1vh"}} className={classes.formControl}>
-              <Select inputProps={{ name: "duration", id: "duration" }} onChange={inputChanged}>
+              <InputLabel htmlFor="duration">Duration</InputLabel>
+              <Select id="duration" value={training.duration} inputProps={{ name: "duration", id: "duration" }} onChange={inputChanged}>
                 {getAvailableTrainingDurations().map((duration, index) => 
                   <MenuItem key={index} value={duration} >{duration}</MenuItem>
-                  )}
+                )}
               </Select>
             </FormControl>
             <FormControl sx={{marginBlock: "1vh"}} className={classes.formControl}>
@@ -123,6 +125,7 @@ function AddTrainingToCustomer(props) {
                     format="MM/dd/yyyy"
                     value={training.date}
                     onChange={handleDateChange}
+                    disablePast
                     KeyboardButtonProps={{
                       'aria-label': 'change date',
                     }}
@@ -133,7 +136,7 @@ function AddTrainingToCustomer(props) {
                     id="time-picker"
                     label="Time picker"
                     value={training.date}
-                    // onChange={handleDateChange}
+                    onChange={handleDateChange}
                     KeyboardButtonProps={{
                       'aria-label': 'change time',
                     }}

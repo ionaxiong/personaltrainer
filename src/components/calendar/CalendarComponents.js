@@ -6,6 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import listPlugin from '@fullcalendar/list';
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import './calendar.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,7 +64,6 @@ const CalendarComponents = () => {
                   }}
                   events={
                     eventsInCalendar.map((e) => {
-                      console.log(e.date, e.duration)
                       return {
                         title: e.activity + " / " + e.customer,
                         start: moment(e.date).toDate(),
@@ -77,6 +77,7 @@ const CalendarComponents = () => {
                   slotMinTime="00:00:00"
                   slotMaxTime="24:00:00"
                   height={"auto"}
+                  eventColor={"#5664d2"}
                 />
           </Paper>
       </>

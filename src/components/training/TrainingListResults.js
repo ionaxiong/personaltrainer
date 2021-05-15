@@ -23,6 +23,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import DeleteTraining from "./DeleteTraining";
 import { DataGrid, GridToolbar } from "@material-ui/data-grid";
+import './training.css';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -144,15 +145,15 @@ const TrainingListResults = (props, { ...rest }) => {
             <Paper {...rest} className={classes.root} >
                 {trainings.length > 0 &&
                     <DataGrid
-                    rows={trainings}
-                    columns={columns}
-                    pagination
-                    pageSize={5}
-                    rowsPerPageOptions={[5, 10, 25]}
-                    autoHeight
-                    components={{
-                        Toolbar: GridToolbar,
-                      }}
+                        rows={trainings}
+                        columns={columns}
+                        pagination
+                        pageSize={5}
+                        rowsPerPageOptions={[5, 10, 25]}
+                        autoHeight
+                        components={{
+                            Toolbar: GridToolbar,
+                        }}
                     >
                     </DataGrid>
                 }

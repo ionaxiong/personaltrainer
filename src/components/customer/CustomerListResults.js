@@ -25,6 +25,7 @@ import AddTrainingToCustomer from "./AddTrainingToCustomer";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import './customer.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -214,6 +215,7 @@ const CustomerListResults = (props, { ...rest }) => {
 
     const fetchTrainings = (row) => {
       var url = row.links[2].href;
+      setTrainingOpen(false);
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
@@ -224,7 +226,9 @@ const CustomerListResults = (props, { ...rest }) => {
     };
 
     const addTrainingToCustomer = (newTraining) => {
-      fetch(`${row.links[2].href.content}`, {
+      newTraining.date = moment(newTraining.date).toISOString();
+      newTraining.customer = row.links[0].href;
+      fetch("https://customerrest.herokuapp.com/api/trainings", {
         method: "POST",
         body: JSON.stringify(newTraining),
         headers: {"Content-Type": "application/json"},
@@ -234,7 +238,7 @@ const CustomerListResults = (props, { ...rest }) => {
           setMessage("Training is added successfully!");
           setAlertSeverity("success");
           openSnackbar();
-          fetchTrainings();
+          fetchTrainings(row);
         } else {
           setMessage("Something went wrong when adding training!");
           setAlertSeverity("error");
@@ -296,7 +300,7 @@ const CustomerListResults = (props, { ...rest }) => {
                     </ListItem>
                   ))}
                   </List>
-                <AddTrainingToCustomer customerId={row.id} addTrainingToCustomer={addTrainingToCustomer} />
+                <AddTrainingToCustomer addTrainingToCustomer={addTrainingToCustomer} />
               </Box>
             </Collapse>
           </TableCell>

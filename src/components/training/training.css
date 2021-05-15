@@ -1,0 +1,22 @@
+.MuiDataGrid-toolbar {
+    padding: 20px 20px 15px 20px !important;
+    justify-content: flex-end;
+}
+
+.MuiDataGrid-toolbar > button {
+    padding: 5px;
+    margin: 0 0 -5px 10px;
+}
+
+.MuiDataGrid-toolbar > button > span {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.MuiOutlinedInput-root.MuiInputBase-root {
+    margin: 15px 10px 0 10px;
+}
+
+.MuiNativeSelect-root.MuiNativeSelect-select {
+    padding: 5px;
+}

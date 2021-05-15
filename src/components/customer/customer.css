@@ -1,0 +1,18 @@
+.MuiInputLabel-root.MuiInputLabel-formControl {
+    top: 15px !important;
+    left: 10px !important;
+    background-color: white;
+    padding: 0 5px;
+}
+
+.MuiPickersDay-day {
+    color: #172b4d !important;
+}
+
+.MuiPickersDay-day.MuiPickersDay-dayDisabled {
+    color: #ccc !important;
+}
+
+.MuiPickersDay-day.MuiPickersDay-daySelected {
+    background-color: #eee;
+}
