@@ -12,6 +12,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#FFFFFF",
     padding: 40,
+    overflowX: "scroll",
+    flexGrow: 1,
+    display: "flex",
   },
 }));
 

@@ -7,6 +7,25 @@ import DeleteTraining from "./DeleteTraining";
 import { DataGrid, GridToolbar } from "@material-ui/data-grid";
 import "./training.css";
 
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState({
+    width: undefined,
+    height: undefined,
+  });
+  useEffect(() => {
+    function handleResize() {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowSize;
+}
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -40,6 +59,7 @@ const TrainingListResults = (props, { ...rest }) => {
   const [message, setMessage] = useState("");
   const [alertSeverity, setAlertSeverity] = useState("error");
   const [open, setOpen] = useState(false);
+  const size = useWindowSize();
 
   const openSnackbar = () => {
     setOpen(true);
@@ -104,7 +124,7 @@ const TrainingListResults = (props, { ...rest }) => {
     {
       field: "actions",
       headerName: "Actions",
-      width: 200,
+      width: size.width > 1000 ? 200 : 20,
       align: "center",
       headerAlign: "center",
       filterable: false,
@@ -130,12 +150,14 @@ const TrainingListResults = (props, { ...rest }) => {
             : ""}
         </div>
       ),
+      hide: size.width < 1000,
     },
     {
       field: "duration",
       flex: 1,
       headerName: "Duration (mins)",
       filterable: true,
+      hide: size.width < 1000,
     },
     { field: "customer", flex: 1, headerName: "Customer", filterable: true },
   ];
@@ -151,7 +173,7 @@ const TrainingListResults = (props, { ...rest }) => {
             pageSize={5}
             rowsPerPageOptions={[5, 10, 25]}
             autoHeight
-            components={{
+            components={{ 
               Toolbar: GridToolbar,
             }}
           ></DataGrid>
